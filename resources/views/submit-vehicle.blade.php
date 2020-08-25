@@ -1101,16 +1101,28 @@
                                 <div class="collapse" id="vehicleEquipment">
                                     <div class="form-group row text-left">
                                         @foreach ($equipment as $item)
+                                        <?php
+                                        $hasItem = 0;
+                                            if ($vehicle !== null){
+                                                foreach ($vehicle->equipment as $equipment){
+                                                    if ( $item->id === $equipment->id ){
+                                                        $hasItem = 1;
+                                                    }
+                                                }
+                                            }        
+                                        ?>
                                         <div class="col-1"></div>
                                         <div class="col-10 col-lg-4">
-                                            <label class="toggle thin" for="equipment{{ $item->id }}">
+                                            <label class="toggle thin" for="equipmentId{{ $item->id }}">
                                                 <div class="row">
                                                     <div class="col-10">
                                                         <span>{{ $item->name }}</span>
                                                     </div>
                                                     <div class="col-1">
                                                         <div class="switch">
-                                                            <input type="checkbox" id="equipment{{ $item->id }}" name="equipment[]" value="{{ $item->id }}"> 
+                                                            <input type="checkbox" id="equipmentId{{ $item->id }}" name="equipment['{{ $item->id }}']" 
+                                                                   checked="" onchange="toggles(this)"
+                                                                   value="{{ old('equipment.$item->id') ?? $hasItem ?? ('0') }}"> 
                                                             <span class="slider round"></span>
                                                         </div>
                                                     </div>
