@@ -12,7 +12,7 @@ return [
       |
      */
 
-    'name' => env('APP_NAME', 'Sonocar Automóviles'),
+    'name' => env('APP_NAME', 'Laravel'),
     /*
       |--------------------------------------------------------------------------
       | Application Environment
@@ -45,7 +45,7 @@ return [
       | your application so that it is used when running Artisan tasks.
       |
      */
-    'url' => env('APP_URL', 'http://localhost/index.php'),
+    'url' => env('APP_URL', 'http://localhost'),
     'rootURL' => env('ROOT_URL', 'http://localhost'),
     'asset_url' => env('ASSET_URL', null),
     /*
