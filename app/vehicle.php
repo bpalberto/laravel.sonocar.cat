@@ -91,7 +91,7 @@ class vehicle extends Model {
     }
 
     public function efficiencyClass() {
-        return $this->belongsTo('App\efficiencyClass', 'efficiencyClass');
+        return $this->belongsTo('App\efficiencyClass', 'efficiencyClass_id');
     }
 
     public function fuelCategory() {
@@ -123,7 +123,7 @@ class vehicle extends Model {
     }
 
     public function upholstery() {
-        return $this->belongsToMany('App\upholstery');
+        return $this->belongsTo('App\upholstery', 'upholstery_id');
     }
 
     public function equipment() {

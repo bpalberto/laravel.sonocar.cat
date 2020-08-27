@@ -53,11 +53,11 @@ $valor = "Valor";
             <h3 class="text-danger">No hay resultados</h3>
             @else
             @foreach ($vehicles as $vehicle)
-            <a href="{{ $vehicleURL }}/sku/{{ $vehicle->crossReference }}">
-                <div class='card' style='width: 22rem;'>
+                <div class='card my-5' style='width: 22rem;'>
                     @if ( $vehicle->images->isNotEmpty() )
                     <div id="carouselVehicle{{ $vehicle->id }}Images" class="carousel slide bg-dark" data-ride="carousel">
                         <div class="carousel-inner">
+                            <a href="{{ $vehicleURL }}/sku/{{ $vehicle->crossReference }}">
                             @foreach ($vehicle->images as $key => $picture)
                             @if ($key == 0)
                             <div class="catalogue carousel-item active" style="background-image: url('{{ $picture->fileName }}');"></div>
@@ -65,6 +65,7 @@ $valor = "Valor";
                             <div class="catalogue carousel-item" style="background-image: url('{{ $picture->fileName }}');"></div>
                             @endif
                             @endforeach
+                            </a>
                         </div>
                         <a class="carousel-control-prev" href="#carouselVehicle{{ $vehicle->id }}Images" role="button" data-slide="prev">
                             <span class="btn btn-xs mdi mdi-24px mdi-chevron-left bg-orange"></span>
@@ -97,9 +98,9 @@ $valor = "Valor";
                         </div>
                     </div>
                     @endif
-                    <div class='card-body'>
-                        <h4 class='card-title'>{{ $vehicle->maker->name }} {{ $vehicle->model->name }}</h4>
-                        <h6 class='card-subtitle'>{{ $vehicle->modelVersion }}</h6>
+                    <div class='mt-5'>
+                        <h4 class='card-title mt-0'>{{ $vehicle->maker->name }} {{ $vehicle->model->name }}</h4>
+                        <h6 class='card-subtitle mt-0'>{{ $vehicle->modelVersion }}</h6>
 
                         <table class='table text-extra-small'>
                             <tbody>
@@ -176,16 +177,15 @@ $valor = "Valor";
                             @endif
                         </p>
                     </div>
-                    <div class='card-footer'>
+                    <div class='mt-5'>
                         @if ( $vehicle->sold )
-                        <h6 class="text-danger text-uppercase">{{ __('catalogue.soldLabel') }}</h6>
+                        <h6 class="mt-0 text-danger text-uppercase">{{ __('catalogue.soldLabel') }}</h6>
                         @else
-                        <h6 class="card-subtitle"><span>{{ __('catalogue.priceLabel') }}: {{ number_format( $vehicle->price, 0, ',', '.') }}</span> €</h6>
+                        <h6 class="mt-0"><span>{{ __('catalogue.priceLabel') }}: {{ number_format( $vehicle->price, 0, ',', '.') }}</span> €</h6>
                         @endif
-                        <p><a href="{{ $vehicleURL }}/sku/{{ $vehicle->crossReference }}" class="btn btn-primary">{{ __('catalogue.moreDetailsButton') }}</a></p>
                     </div>
+                    <a href="{{ $vehicleURL }}/sku/{{ $vehicle->crossReference }}" class="btn btn-block btn-primary">{{ __('catalogue.moreDetailsButton') }}</a>
                 </div>
-            </a>
             @endforeach
             @endif
             <!-- /CATALOG LIST -->

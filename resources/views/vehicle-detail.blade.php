@@ -23,7 +23,7 @@
             <div class="row justify-content-center px-3 mt-5">
                 <div class="col-12 col-md-8 col-lg-9 col-xxl-10 text-center text-md-left">
                     @if ( $vehicle->sold )
-                    <h3 class="mt-0 text-danger">Vendido</h3>
+                    <h3 class="mt-0 text-danger">{{ __('catalogue.soldLabel') }}</h3>
                     @endif
                     <h2 class="mt-0 display-3">{{ $vehicle->maker->name }} - {{ $vehicle->model->name }}</h2>
                     <h4 class="mt-0 display-5">{{ $vehicle->modelVersion }}</h4>
@@ -292,7 +292,7 @@
                 <div class='card-footer'>
                     <h3 class="text-center"><span>{{ __('catalogue.priceLabel') }}: {{ number_format( $vehicle->price, 0, ',', '.') }}</span> €</h3>
                     @if ( $vehicle->sold )
-                    <h3 class="text-center text-danger">Vendido</h3>
+                    <h3 class="text-center text-danger">{{ __('catalogue.soldLabel') }}</h3>
                     @else
                     <form class="rd-mailform text-left offset-top-50" data-form-output="form-output-global" data-form-type="order" method="post" action="{{ $rootURL }}/bat/rd-mailform.php">
                         <div class="row">

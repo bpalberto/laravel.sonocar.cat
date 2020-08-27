@@ -91,7 +91,7 @@ function fillFirstRegistrationDate(month, year) {
         firstRegistration.year = year;
     }
 
-    result = firstRegistration.month + "/" + firstRegistration.year;
+    result = firstRegistration.month + " / " + firstRegistration.year;
     objective2.value = objective1.value = result;
 }
 
@@ -114,7 +114,7 @@ function fillNextInspection(month, year) {
         nextInspection.year = year;
     }
 
-    result = nextInspection.month + "/" + nextInspection.year;
+    result = nextInspection.month + " / " + nextInspection.year;
     objective2.value = objective1.value = result;
 }
 
@@ -138,7 +138,7 @@ function fillLastTechnicalService(month, year) {
         lastService.year = year;
     }
 
-    result = lastService.month + "/" + lastService.year;
+    result = lastService.month + " / " + lastService.year;
     objective2.value = objective1.value = result;
 }
 
@@ -161,25 +161,25 @@ function fillLastCamBeltService(month, year) {
         lastCamBeltService.year = year;
     }
 
-    result = lastCamBeltService.month + "/" + lastCamBeltService.year;
+    result = lastCamBeltService.month + " / " + lastCamBeltService.year;
     objective2.value = objective1.value = result;
 }
 
 function formatLicensePlate() {
     var licensePlate = document.getElementById("licensePlate"), str = "", isValid;
-    var pattValidPlate = /(^[a-z]{2}[0-9]{4}[a-z]{2}$|^[a-z]{1}[0-9]{4}[a-z]{2}$)|^[0-9]{4}[a-z]{3}$/i;
+    var pattValidPlate = /(^[a-z]{2}-?[0-9]{4}-?[a-z]{2}$|^[a-z]{1}-?[0-9]{4}-?[a-z]{2}$)|^[0-9]{4}-?[a-z]{3}$/i;
 
     str = licensePlate.value;
     isValid = str.match(pattValidPlate);
 
     if (isValid === null) {
         licensePlate.value = "";
-        licensePlate.placeholder = "ERROR";
+        licensePlate.placeholder = "Antigua: xx-0000-xx | Actual: 0000-xxx ";
         return;
     }
 
     var plate = null;
-    var pattOldPlate = /^[a-z][a-z]|^[a-z]^/i;
+    var pattOldPlate = /^[a-z][a-z]|^[a-z]/i;
     var pattLold = /[a-z][a-z]$/i;
     var pattL = /[a-z][a-z][a-z]$/i;
     var pattN = /[0-9][0-9][0-9][0-9]/i;

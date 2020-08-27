@@ -118,7 +118,7 @@ class vehicleManager extends Migration
             $table->unsignedTinyInteger('doors');
             $table->char('drive_type_id', 1);
             $table->float('co2', 3, 1);
-            $table->unsignedBigInteger('efficiencyClass')->default(1);
+            $table->unsignedBigInteger('efficiencyClass_id')->default(1);
             $table->unsignedBigInteger('emission_sticker_id');
             $table->boolean('particleFilter');
             $table->unsignedBigInteger('pollution_class_id')->nullable();
@@ -151,7 +151,7 @@ class vehicleManager extends Migration
             $table->decimal('price', 8, 2);
             $table->tinyInteger('seats');
             $table->char('transmission_id', 1);
-            $table->char('upholstery', 2);
+            $table->char('upholstery_id', 2);
             $table->unsignedBigInteger('vehicle_body_id');
             $table->char('vehicle_offer_type_id', 1);
             $table->char('vehicleType', 1);
@@ -175,13 +175,13 @@ class vehicleManager extends Migration
             $table->foreign('model_id')->references('id')->on('models');
             $table->foreign('body_color_id')->references('id')->on('body_colors');
             $table->foreign('emission_sticker_id')->references('id')->on('emissions_stickers');
-            $table->foreign('efficiencyClass')->references('id')->on('efficiency_classes');
+            $table->foreign('efficiencyClass_id')->references('id')->on('efficiency_classes');
             $table->foreign('pollution_class_id')->references('id')->on('pollution_class');
             $table->foreign('fuel_type_id')->references('id')->on('fuel_types');
             $table->foreign('fuel_category_id')->references('id')->on('fuel_categories');
             $table->foreign('interior_color_id')->references('id')->on('interior_colors');
             $table->foreign('transmission_id')->references('id')->on('transmissions');
-            $table->foreign('upholstery')->references('id')->on('upholsteries');
+            $table->foreign('upholstery_id')->references('id')->on('upholsteries');
             $table->foreign('vehicle_body_id')->references('id')->on('vehicle_bodies');
             $table->foreign('vehicle_offer_type_id')->references('id')->on('vehicle_offer_types');
         });

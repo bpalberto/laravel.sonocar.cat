@@ -113,7 +113,7 @@ return [
     "emissionsStickerLabel"         => "Etiqueta mediambiental",
     "weightLabel"                   => "Pes",
     "descriptionLabel"              => "Descripció",
-    "soldLabel"                     => "Està venut?",
+    "iSsoldLabel"                   => "Està venut?",
     "visibleLabel"                  => "Fer públic?",
     "previousOwnersLabel"           => "Propietaris anteriors",
     "nextInspectionLabel"           => "Pròxima ITV",

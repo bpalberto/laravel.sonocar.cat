@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-12 col-xl-11 col-xxl-10">
                 @if ($modify)
-                <h1>Editar vehículo (id: {{ $vehicle->id }})</h1>
+                <h1>Editar vehículo ({{ $vehicle->crossReference }})</h1>
                 @else
                 <h1>{{ __('catalogue.submitNewTitle') }}</h1>
                 @endif
@@ -43,7 +43,7 @@
                                     <div class="form-group @error('maker') is-invalid @enderror">
                                         <label class="required" for="selectMaker">{{ __('catalogue.makerLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectMaker" name="make_id" value="{{ $vehicle->maker }}" disabled>
+                                        <input class="form-control disabled" type="text" id="makerName" name="makerName" value="{{ $vehicle->maker->name }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick " id="selectMaker" name="make_id" requerido="no"
                                                 data-style="btn btn-sm btn-outline-light" data-size="5" 
@@ -51,7 +51,7 @@
                                             <option value="">{{ __('catalogue.selectOption') }}</option>
                                             <option data-divider="true"></option>
                                             @foreach ( $vehicleMakers as $maker )
-                                            @if ($maker->id == old('maker'))
+                                            @if ($maker->id == old('make_id'))
                                             <option value="{{ $maker->id }}" selected>{{ $maker->name }}</option>
                                             @else
                                             <option value="{{ $maker->id }}">{{ $maker->name }}</option>
@@ -69,9 +69,9 @@
                                 <div class="mb-4 text-left">
                                     <div class="form-group @error('model') is-invalid @enderror">
                                         <label class="required" for="selectModel">{{ __('catalogue.modelLabel') }}</label>
-                                        <div id="oldModel" class="invisible" value="{{ old('model') }}"></div>
+                                        <div id="oldModel" class="invisible" value="{{ old('model_id') }}"></div>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectModel" name="model_id" value="{{ $vehicle->model }}" disabled>
+                                        <input class="form-control disabled" type="text" id="modelName" name="modelName" value="{{ $vehicle->model->name }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectModel" name="model_id" requerido="no"
                                                 data-style="btn btn-sm btn-outline-light" data-size="5" 
@@ -132,7 +132,13 @@
                                     <div class="form-group @error('vehicleType') is-invalid @enderror">
                                         <label class="required" for="selectVehicleType">{{ __('catalogue.typeLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectVehicleType" name="vehicleType" value="{{ $vehicle->type }}" disabled>
+                                        @if($vehicle->vehicleType === "C")
+                                        <input class="form-control disabled" type="text" id="vehicleTypeName" name="vehicleType" value="{{ __('catalogue.carOption') }}" disabled>
+                                        @elseif($vehicle->vehicleType === "B")
+                                        <input class="form-control disabled" type="text" id="vehicleTypeName" name="vehicleType" value="{{ __('catalogue.bikeOption') }}" disabled>
+                                        @else
+                                        <input class="form-control disabled" type="text" id="vehicleTypeName" name="vehicleType" value="" disabled>
+                                        @endif
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectVehicleType" name="vehicleType" requerido="no"
                                                 data-style="btn btn-sm btn-outline-light" data-size="5" 
@@ -284,7 +290,7 @@
                                     <div class="form-group @error('fuelCategory') is-invalid @enderror">
                                         <label class="required" for="selectFuelCategory">{{ __('catalogue.fuelLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectFuelCategory" name="fuelCategory" value="{{ $vehicle->vehicleBody->name }}" disabled>
+                                        <input class="form-control disabled" type="text" id="selectFuelCategory" name="fuelCategory" value="{{ $vehicle->fuelCategory->name }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectFuelCategory" name="fuelCategory" requerido="no"
                                                 data-style="btn btn-sm btn-outline-light" data-size="5" 
@@ -306,7 +312,7 @@
                                     @enderror
                                 </div>
 
-                                <div id="divElectricConsumptionGroup" class="collapse {{ old('fuelCategory') === "E" ? "show" : ""}}">
+                                <div id="divElectricConsumptionGroup" class="collapse {{ old('fuelCategory') === "E" ? "show" : ""}}{{ ($vehicle !== null && $vehicle->fuelCategory->id === 'E') ? "show" : "" }}">
                                     <!-- electric Consumption Combined -->
                                     <div id="divElectricConsumptionCombined" class="form-group mb-4 text-left">
                                         <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="electricConsumptionCombined">{{ __('catalogue.electricConsumptionLabel') }}</label>
@@ -320,7 +326,7 @@
                                     </div>
                                 </div>
 
-                                <div id="divFuelConsumptionGroup" class="collapse {{ old('fuelCategory') !== null && old('fuelCategory') !== "E" ? "show" : ""}}">
+                                <div id="divFuelConsumptionGroup" class="collapse {{ old('fuelCategory') !== null && old('fuelCategory') !== "E" ? "show" : ""}}{{ ($vehicle !== null && $vehicle->fuelCategory->id !== 'E') ? "show" : "" }}">
                                     <!-- fuel Consumption Urban -->
                                     <div id="divFuelConsumptionUrban" class="form-group mb-4 text-left">
                                         <div class="row">
@@ -462,7 +468,7 @@
                                         <label class="required" for="selectDriveType">{{ __('catalogue.driveTypeLabel') }}</label>
                                         @if ($vehicle !== null)
                                         <input class="form-control disabled" type="text" id="selectDriveType" name="driveType" 
-                                               value="{{ $vehicle->efficiencyClass->name }}" requerido="no" disabled>
+                                               value="{{ $vehicle->driveType->name }}" requerido="no" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectDriveType" name="driveType" requerido="no"
                                                 data-style="btn btn-sm btn-outline-light" data-size="5" 
@@ -490,7 +496,7 @@
                                         <label class="required" for="selectTransmission">{{ __('catalogue.transmissionLabel') }}</label>
                                         @if ($vehicle !== null)
                                         <input class="form-control disabled" type="text" id="selectTransmission" name="transmission" requerido="no"
-                                               value="{{ $vehicle->efficiencyClass->name }}" disabled>
+                                               value="{{ $vehicle->transmission->name }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectTransmission" name="transmission" requerido="no"
                                                 data-style="btn btn-sm btn-outline-light" data-size="5" 
@@ -531,7 +537,7 @@
 
                             <fieldset class="col-md-5">
 
-                                <div id="cylinders" class="collapse {{ old('fuelCategory') !== null && old('fuelCategory') !== "E" ? "show" : ""}}">
+                                <div id="cylinders" class="collapse {{ old('fuelCategory') !== null && old('fuelCategory') !== "E" ? "show" : ""}}{{ ($vehicle !== null && $vehicle->fuelCategory->id !== "E") ? "show" : "" }}">
                                     <!-- cylinders -->
                                     <div class="form-group mb-4 text-left">
                                         <div class="row">
@@ -760,7 +766,7 @@
                                         <label class="required" for="selectBodyColor">{{ __('catalogue.bodyColorLabel') }}</label>
                                         @if ($vehicle !== null)
                                         <input class="form-control disabled" type="text" id="selectBodyColor" name="bodyColor" requerido="no"
-                                               value="{{ $vehicle->type }}" disabled>
+                                               value="{{ $vehicle->bodyColor->name }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectBodyColor" name="bodyColor" requerido="no"
                                                 data-style="btn btn-sm btn-outline-light" data-size="6">
@@ -786,7 +792,7 @@
                                                 <div class="col-1">
                                                     <div class="switch">
                                                         <input type="checkbox" id="isMetallic" name="metallic" checked=""
-                                                               onchange="toggles(this)" value="{{ old('isMetallic') ?? $vehicle->isMetallic ?? ('0') }}"> 
+                                                               onchange="toggles(this)" value="{{ old('isMetallic') ?? $vehicle->metallic ?? ('0') }}"> 
                                                         <span class="slider round"></span>
                                                     </div>
                                                 </div>
@@ -1055,12 +1061,12 @@
                                 <label class="toggle mb-3" for="isSold">
                                     <div class="row">
                                         <div class="col-10">
-                                            <span>{{ __('catalogue.soldLabel') }}</span>
+                                            <span>{{ __('catalogue.iSsoldLabel') }}</span>
                                         </div>
                                         <div class="col-2">
                                             <div class="switch">
-                                                <input type="checkbox" id="isSold" name="isSold" checked=""
-                                                       onchange="toggles(this)" value="{{ old('isSold') ?? $vehicle->isSold ?? ('0') }}">
+                                                <input type="checkbox" id="isSold" name="sold" checked=""
+                                                       onchange="toggles(this)" value="{{ old('sold') ?? $vehicle->sold ?? ('0') }}">
                                                 <span class="slider round"></span>
                                             </div>
                                         </div>
@@ -1077,8 +1083,8 @@
                                         </div>
                                         <div class="col-2">
                                             <div class="switch">
-                                                <input type="checkbox" id="isVisible" name="isVisible" checked=""
-                                                       onchange="toggles(this)" value="{{ old('isVisible') ?? $vehicle->isVisible ?? ('1') }}">
+                                                <input type="checkbox" id="isVisible" name="visible" checked=""
+                                                       onchange="toggles(this)" value="{{ old('visible') ?? $vehicle->visible ?? ('1') }}">
                                                 <span class="slider round"></span>
                                             </div>
                                         </div>
@@ -1088,6 +1094,7 @@
 
                         </fieldset>
 
+                        @if ($vehicle !== null)
                         <!-- EQUIPMENT -->
                         <div class="row">
                             <div class="col-12">
@@ -1142,6 +1149,7 @@
 
                             </div>
                         </div>
+                        @endif
 
                         @if ($vehicle !== null)
                         <!-- IMAGES -->

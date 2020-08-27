@@ -55,9 +55,9 @@ class CatalogueAuthController extends Controller {
 
         return view('catalogue', ['vehicles' => $vehicles, 'makers' => $allMakers]);
     }
-
-    public function submitVehicleGet() {
-
+    
+    protected function getExtraData() {
+        
         $vehicleMakers = \Illuminate\Support\Facades\DB::table('makes')->orderBy('name', 'asc')->get();
         $vehicleModels = \Illuminate\Support\Facades\DB::table('models')->orderBy('name', 'asc')->get();
         $vehicleBodies = \Illuminate\Support\Facades\DB::table('vehicle_bodies')->orderBy('name', 'asc')->get();
@@ -91,13 +91,13 @@ class CatalogueAuthController extends Controller {
             'vehicle' => null,
             'result' => null
         );
-
-
-        return view('submit-vehicle', $data);
+        
+        return $data;
+        
     }
-
-    public function submitVehiclePost(Request $request) {
-
+    
+    protected function getValidateRules() {
+        
         $dataRules = array(
             "make_id" => "required",
             "model_id" => "required",
@@ -144,6 +144,21 @@ class CatalogueAuthController extends Controller {
             "isSold" => "boolean",
             "isVisible" => "boolean",
         );
+        
+        return $dataRules;
+        
+    }
+
+    public function submitVehicleGet() {
+
+        $data = $this->getExtraData();
+
+        return view('submit-vehicle', $data);
+    }
+
+    public function submitVehiclePost(Request $request) {
+
+        $dataRules = $this->getValidateRules();
 
         $validatedData = $request->validate($dataRules);
 
@@ -168,8 +183,8 @@ class CatalogueAuthController extends Controller {
         $validatedData['vehicle_body_id'] = $validatedData['vehicleBody'];
         $validatedData['vehicle_offer_type_id'] = $validatedData['offerType'];
         $validatedData['vin'] = $validatedData['vinNumber'];
-        $validatedData['sold'] = $validatedData['isSold'];
-        $validatedData['visible'] = $validatedData['isVisible'];
+        //$validatedData['sold'] = $validatedData['isSold'];
+        //$validatedData['visible'] = $validatedData['isVisible'];
 
 
         // campos olvidados en el formulario
@@ -206,8 +221,13 @@ class CatalogueAuthController extends Controller {
     }
 
     public function modifyVehicleID($id) {
-        $vehicle = vehicle::where('id', $id)->get();
-        return view('submit-vehicle', ['modify' => true, 'vehicle' => $vehicle[0]]);
+        $vehicle = vehicle::find($id);
+        
+        $data = $this->getExtraData();
+        $data['modify'] = true;
+        $data['vehicle'] = $vehicle;
+        
+        return view('submit-vehicle', $data);
     }
 
     public function modifyVehicleIDPost(Request $request, $id) {

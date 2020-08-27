@@ -8,7 +8,7 @@ class fuelCategory extends Model
 {
     protected $fillable = ['name'];
     
-    
+    public $incrementing = false;
     
     public function vehicles()
     {
