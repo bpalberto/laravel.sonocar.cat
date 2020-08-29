@@ -91,7 +91,7 @@ function fillFirstRegistrationDate(month, year) {
         firstRegistration.year = year;
     }
 
-    result = firstRegistration.month + " / " + firstRegistration.year;
+    result = firstRegistration.month + "/" + firstRegistration.year;
     objective2.value = objective1.value = result;
 }
 
@@ -114,7 +114,7 @@ function fillNextInspection(month, year) {
         nextInspection.year = year;
     }
 
-    result = nextInspection.month + " / " + nextInspection.year;
+    result = nextInspection.month + "/" + nextInspection.year;
     objective2.value = objective1.value = result;
 }
 
@@ -138,7 +138,7 @@ function fillLastTechnicalService(month, year) {
         lastService.year = year;
     }
 
-    result = lastService.month + " / " + lastService.year;
+    result = lastService.month + "/" + lastService.year;
     objective2.value = objective1.value = result;
 }
 
@@ -161,7 +161,37 @@ function fillLastCamBeltService(month, year) {
         lastCamBeltService.year = year;
     }
 
-    result = lastCamBeltService.month + " / " + lastCamBeltService.year;
+    result = lastCamBeltService.month + "/" + lastCamBeltService.year;
+    objective2.value = objective1.value = result;
+}
+
+var deliveryDate = new Object();
+deliveryDate.day = "";
+deliveryDate.month = "";
+deliveryDate.year = "";
+
+function fillDeliveryDate(day, month, year){
+    var result;
+    var objective1 = document.getElementById('deliveryDate');
+    var objective2 = document.getElementById('deliveryDateDisplay');
+    
+    if (day !== null) {
+        if (day.length < 2) {
+            day = "0" + day;
+        }
+        deliveryDate.day = day;
+    }
+    if (month !== null) {
+        if (month.length < 2) {
+            month = "0" + month;
+        }
+        deliveryDate.month = month;
+    }
+    if (year !== null) {
+        deliveryDate.year = year;
+    }
+    
+    result = deliveryDate.day + "/" + deliveryDate.month + "/" + deliveryDate.year;
     objective2.value = objective1.value = result;
 }
 
@@ -236,6 +266,20 @@ function showInputConsumptions(fuelSelectedId) {
     }
 }
 
+function showAvailabilityGroup(selected){
+    
+    if (selected === "2"){
+        $('#deliveryDateGroup').collapse('show');
+        $('#deliveryDaysGroup').collapse('hide');
+    } else if (selected === "3") {
+        $('#deliveryDateGroup').collapse('hide');
+        $('#deliveryDaysGroup').collapse('show');
+    } else {
+        $('#deliveryDateGroup').collapse('hide');
+        $('#deliveryDaysGroup').collapse('hide');
+    }
+}
+
 function toggles(sender){
    
     if (sender.value !== "1"){
@@ -299,8 +343,25 @@ $('#selectYearLastCamBeltService').on('changed.bs.select', function (e, clickedI
     fillLastCamBeltService(null, yearSelected);
 });
 
+$('#selectDayDeliveryDate').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+    var daySelected = e.currentTarget.selectedOptions[0].value;
+    fillDeliveryDate( daySelected, null, null);
+});
 
+$('#selectMonthDeliveryDate').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+    var monthSelected = e.currentTarget.selectedOptions[0].value;
+    fillDeliveryDate( null, monthSelected, null);
+});
 
+$('#selectYearDeliveryDate').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+    var yearSelected = e.currentTarget.selectedOptions[0].value;
+    fillDeliveryDate( null, null, yearSelected);
+});
+
+$('#selectAvailabilityType').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+    var selected = e.currentTarget.selectedOptions[0].value;
+    showAvailabilityGroup( selected );
+});
 
 window.onload = function () {
     var maker = $('#selectMaker').selectpicker('val');

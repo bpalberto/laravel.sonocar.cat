@@ -6,7 +6,7 @@
 
 
 
-$orderMessage = "Hola, estic interessat en el seu vehicle :maker :model (:version) :color. \r\n" .
+$orderMessage = "Hola, estic interessat en el seu vehicle :maker :model (:version) :color amb referència :ref. \r\n" .
     "¿Està disponible encara? \r\n" .
     "Moltes gràcies.\r\n ";
 
@@ -86,6 +86,9 @@ return [
     "firstRegistrationLabel"        => "Data de Matriculació",
     "registrationMonthLabel"        => "Mes",
     "registrationYearLabel"         => "Any",
+    "dayLabel"                      => "Dia",
+    "monthLabel"                    => "Mes",
+    "yearLabel"                     => "Any",
     "bodyColorLabel"                => "Color exterior",
     "metallicColorLabel"            => "Pintura metal·litzada",
     "bodyTypeLabel"                 => "Carrosseria",
@@ -93,10 +96,9 @@ return [
     "interiorColorLabel"            => "Color",
     "upholsteryLabel"               => "Tapisseria",
     "availabilityLabel"             => "Disponibilitat",
-    "availability1Label"            => "Immediatament",
-    "availability2Label"            => "Disponible des de (data exacta)",
-    "availability3Label"            => "Disponible des (setmanes)",
-    "availability0Label"            => "Consultar",
+    "deliveryDateLabel"             => "Data d'entrega",
+    "deliveryDaysLabel"             => "Disponible en",
+    "availabilityWeeksLabel"        => "Setmanes",
     "tractionLabel"                 => "Tracció",
     "offerTypeLabel"                => "Tipus d'oferta",
     "warrantyLabel"                 => "Garantia",

@@ -55,9 +55,10 @@ class CatalogueAuthController extends Controller {
 
         return view('catalogue', ['vehicles' => $vehicles, 'makers' => $allMakers]);
     }
-    
+
     protected function getExtraData() {
-        
+
+        $avalabilities = \Illuminate\Support\Facades\DB::table('availability_types')->orderBy('name', 'asc')->get();
         $vehicleMakers = \Illuminate\Support\Facades\DB::table('makes')->orderBy('name', 'asc')->get();
         $vehicleModels = \Illuminate\Support\Facades\DB::table('models')->orderBy('name', 'asc')->get();
         $vehicleBodies = \Illuminate\Support\Facades\DB::table('vehicle_bodies')->orderBy('name', 'asc')->get();
@@ -74,6 +75,7 @@ class CatalogueAuthController extends Controller {
 
 
         $data = array(
+            'avalabilities' => $avalabilities,
             'vehicleMakers' => $vehicleMakers,
             'vehicleModels' => $vehicleModels,
             'vehicleBodies' => $vehicleBodies,
@@ -91,46 +93,49 @@ class CatalogueAuthController extends Controller {
             'vehicle' => null,
             'result' => null
         );
-        
+
         return $data;
-        
+
     }
-    
+
     protected function getValidateRules() {
-        
+
         $dataRules = array(
+            "availability_type_id" => "required",
+            "deliveryDate" => "nullable|date_format:d/m/Y",
+            "deliveryDays" => "nullable|numeric",
             "make_id" => "required",
             "model_id" => "required",
             "modelVersion" => "nullable",
-            "vehicleBody" => "required",
+            "vehicle_body_id" => "required",
             "vehicleType" => "required",
-            "offerType" => "required",
+            "vehicle_offer_type_id" => "required",
             "powerKw" => "required",
             "powerCv" => "required",
             "firstRegistration" => "required|date_format:m/Y",
             "mileage" => "required",
-            "fuelCategory" => "required",
+            "fuel_category_id" => "required",
             "electricConsumptionCombined" => "nullable",
             "fuelConsumptionUrban" => "nullable",
             "fuelConsumptionHighway" => "nullable",
             "fuelConsumptionCombined" => "nullable",
-            "emissionsSticker" => "required",
+            "emission_sticker_id" => "required",
             "efficiencyClass" => "required",
             "co2" => "required",
-            "driveType" => "required",
+            "drive_type_id" => "required",
             "transmission" => "required",
             "gears" => "required",
             "cylinders" => "nullable",
             "cylinderCapacity" => "nullable",
             "emptyWeight" => "nullable",
-            "vinNumber" => "nullable",
-            "licensePlate" => "nullable",
+            "vin" => "nullable",
+            "licencePlateNumber" => "nullable",
             "doors" => "required",
             "seats" => "required",
-            "bodyColor" => "required",
+            "body_color_id" => "required",
             "metallic" => "required|boolean",
             "upholstery" => "required",
-            "interiorColor" => "required",
+            "interior_color_id" => "required",
             "nextInspection" => "nullable|date_format:m/Y",
             "lastTechnicalService" => "nullable|date_format:m/Y",
             "lastCamBeltService" => "nullable|date_format:m/Y",
@@ -144,9 +149,9 @@ class CatalogueAuthController extends Controller {
             "isSold" => "boolean",
             "isVisible" => "boolean",
         );
-        
+
         return $dataRules;
-        
+
     }
 
     public function submitVehicleGet() {
@@ -161,6 +166,13 @@ class CatalogueAuthController extends Controller {
         $dataRules = $this->getValidateRules();
 
         $validatedData = $request->validate($dataRules);
+        
+        if ( isset($validatedData['deliveryDate']) ){
+            $deliveryDate = date_create_from_format("d/m/Y", $validatedData['deliveryDate']);
+            $validatedData['deliveryDate'] = null;
+            $validatedData['deliveryDate'] = $deliveryDate;
+        }
+        
 
         // Creación de la referencia cruzada única según la fecha de creación
         $cTSP1 = "SNCR"; // Refiere eliminar las vocales a SONOCAR
@@ -173,37 +185,34 @@ class CatalogueAuthController extends Controller {
         // campos a cambiar de nombre en el formulario
         //$validatedData['make_id']                   = $validatedData['maker'];
         //$validatedData['model_id']                  = $validatedData['model'];
-        $validatedData['body_color_id'] = $validatedData['bodyColor'];
-        $validatedData['drive_type_id'] = $validatedData['driveType'];
-        $validatedData['emission_sticker_id'] = $validatedData['emissionsSticker'];
-        $validatedData['fuel_category_id'] = $validatedData['fuelCategory'];
-        $validatedData['interior_color_id'] = $validatedData['interiorColor'];
-        $validatedData['licencePlateNumber'] = $validatedData['licensePlate'];
-        $validatedData['transmission_id'] = $validatedData['transmission'];
-        $validatedData['vehicle_body_id'] = $validatedData['vehicleBody'];
-        $validatedData['vehicle_offer_type_id'] = $validatedData['offerType'];
-        $validatedData['vin'] = $validatedData['vinNumber'];
+        //$validatedData['body_color_id'] = $validatedData['bodyColor'];
+        //$validatedData['drive_type_id'] = $validatedData['driveType'];
+        //$validatedData['emission_sticker_id'] = $validatedData['emissionsSticker'];
+        //$validatedData['fuel_category_id'] = $validatedData['fuelCategory'];
+        //$validatedData['interior_color_id'] = $validatedData['interiorColor'];
+        //$validatedData['licencePlateNumber'] = $validatedData['licensePlate'];
+        //$validatedData['transmission_id'] = $validatedData['transmission'];
+        //$validatedData['vehicle_body_id'] = $validatedData['vehicleBody'];
+        //$validatedData['vehicle_offer_type_id'] = $validatedData['offerType'];
+        //$validatedData['vin'] = $validatedData['vinNumber'];
         //$validatedData['sold'] = $validatedData['isSold'];
         //$validatedData['visible'] = $validatedData['isVisible'];
 
 
-        // campos olvidados en el formulario
-        $validatedData['availability_type_id'] = 1;        // (REQUIRED)
-        $validatedData['deliveryDate'] = null;     // (nullable)
-        $validatedData['deliveryDays'] = null;     // (nullable)
+        // campos que no estan en el formulario
         $validatedData['particleFilter'] = false;    // (REQUIRED)
         $validatedData['pollution_class_id'] = null;     // (nullable)
         $validatedData['fuel_type_id'] = null;     // (nullable)
         $validatedData['autonomy'] = null;     // (nullable)
         $validatedData['offerReference'] = null;     // (nullable)
         $validatedData['warrantyMonths'] = 12;       // (REQUIRED)
-        
+
         // Campos automáticamente generados
         $validatedData['crossReference'] = $sku;     // (nullable)
-        
+
         // Campos de compatibilidad externa
         $validatedData['vehicleIdentifier'] = null;     // (nullable) (ID de Autoscout24)
-        
+
         // Crear objeto desde los datos válidos
         $vehicle = new \App\vehicle($validatedData);
 
@@ -222,11 +231,11 @@ class CatalogueAuthController extends Controller {
 
     public function modifyVehicleID($id) {
         $vehicle = vehicle::find($id);
-        
+
         $data = $this->getExtraData();
         $data['modify'] = true;
         $data['vehicle'] = $vehicle;
-        
+
         return view('submit-vehicle', $data);
     }
 

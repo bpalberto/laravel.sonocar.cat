@@ -36,6 +36,68 @@ DELETE FROM `efficiency_classes`;
 
 
 --
+-- Triggers para rellenar el valor de traducción en laravel
+--
+
+CREATE TRIGGER `availability_types_translate_trigger` BEFORE INSERT ON `availability_types`
+FOR EACH ROW
+SET NEW.nameTranslate = concat('bd.','availability_types', '.', NEW.id);
+
+CREATE TRIGGER `body_colors_translate_trigger` BEFORE INSERT ON `body_colors`
+FOR EACH ROW
+SET NEW.nameTranslate = concat('bd.','body_colors', '.', NEW.id);
+
+CREATE TRIGGER `drive_types_translate_trigger` BEFORE INSERT ON `drive_types`
+FOR EACH ROW
+SET NEW.nameTranslate = concat('bd.','drive_types', '.', NEW.id);
+
+CREATE TRIGGER `efficiency_classes_translate_trigger` BEFORE INSERT ON `efficiency_classes`
+FOR EACH ROW
+SET NEW.nameTranslate = concat('bd.','efficiency_classes', '.', NEW.id);
+
+CREATE TRIGGER `emissions_stickers_translate_trigger` BEFORE INSERT ON `emissions_stickers`
+FOR EACH ROW
+SET NEW.nameTranslate = concat('bd.','emissions_stickers', '.', NEW.id);
+
+CREATE TRIGGER `equipment_translate_trigger` BEFORE INSERT ON `equipment`
+FOR EACH ROW
+SET NEW.nameTranslate = concat('bd.','equipment', '.', NEW.id);
+
+CREATE TRIGGER `fuel_categories_translate_trigger` BEFORE INSERT ON `fuel_categories`
+FOR EACH ROW
+SET NEW.nameTranslate = concat('bd.','fuel_categories', '.', NEW.id);
+
+CREATE TRIGGER `fuel_types_translate_trigger` BEFORE INSERT ON `fuel_types`
+FOR EACH ROW
+SET NEW.nameTranslate = concat('bd.','fuel_types', '.', NEW.id);
+
+CREATE TRIGGER `interior_colors_translate_trigger` BEFORE INSERT ON `interior_colors`
+FOR EACH ROW
+SET NEW.nameTranslate = concat('bd.','interior_colors', '.', NEW.id);
+
+CREATE TRIGGER `pollution_class_translate_trigger` BEFORE INSERT ON `pollution_class`
+FOR EACH ROW
+SET NEW.nameTranslate = concat('bd.','pollution_class', '.', NEW.id);
+
+CREATE TRIGGER `transmissions_translate_trigger` BEFORE INSERT ON `transmissions`
+FOR EACH ROW
+SET NEW.nameTranslate = concat('bd.','transmissions', '.', NEW.id);
+
+CREATE TRIGGER `upholsteries_translate_trigger` BEFORE INSERT ON `upholsteries`
+FOR EACH ROW
+SET NEW.nameTranslate = concat('bd.','upholsteries', '.', NEW.id);
+
+CREATE TRIGGER `vehicle_bodies_translate_trigger` BEFORE INSERT ON `vehicle_bodies`
+FOR EACH ROW
+SET NEW.nameTranslate = concat('bd.','vehicle_bodies', '.', NEW.id);
+
+CREATE TRIGGER `vehicle_offer_types_translate_trigger` BEFORE INSERT ON `vehicle_offer_types`
+FOR EACH ROW
+SET NEW.nameTranslate = concat('bd.','vehicle_offer_types', '.', NEW.id);
+
+
+
+--
 -- Bolcament de dades per a la taula `upholsteries`
 --
 

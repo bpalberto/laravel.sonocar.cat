@@ -46,7 +46,7 @@
                                         <input class="form-control disabled" type="text" id="makerName" name="makerName" value="{{ $vehicle->maker->name }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick " id="selectMaker" name="make_id" requerido="no"
-                                                data-style="btn btn-sm btn-outline-light" data-size="5" 
+                                                data-style="btn btn-sm btn-outline-light" data-size="5"
                                                 data-live-search="true" data-live-Search-Placeholder="{{ __('catalogue.searchPlaceholder') }}">
                                             <option value="">{{ __('catalogue.selectOption') }}</option>
                                             <option data-divider="true"></option>
@@ -74,7 +74,7 @@
                                         <input class="form-control disabled" type="text" id="modelName" name="modelName" value="{{ $vehicle->model->name }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectModel" name="model_id" requerido="no"
-                                                data-style="btn btn-sm btn-outline-light" data-size="5" 
+                                                data-style="btn btn-sm btn-outline-light" data-size="5"
                                                 data-live-search="true" data-live-Search-Placeholder="{{ __('catalogue.searchPlaceholder') }}">
                                             <option value="">{{ __('catalogue.selectOption') }}</option>
                                             <option data-divider="true"></option>
@@ -89,8 +89,8 @@
                                 <!-- Model Version -->
                                 <div class="form-group mb-4 text-left">
                                     <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="modelVersion">{{ __('catalogue.modelVersionLabel') }}</label>
-                                    <input class="form-control input-sm" type="text" id="modelVersion" name="modelVersion" 
-                                           placeholder="{{ __('catalogue.modelVersionPlaceholder') }}" 
+                                    <input class="form-control input-sm" type="text" id="modelVersion" name="modelVersion"
+                                           placeholder="{{ __('catalogue.modelVersionPlaceholder') }}"
                                            value="@if ($vehicle !== null){{ $vehicle->modelVersion }}@else{{ old('modelVersion') }}@endif">
                                 </div>
 
@@ -99,18 +99,18 @@
                                     <div class="form-group @error('vehicleBody') is-invalid @enderror">
                                         <label class="required" for="selectVehicleBody">{{ __('catalogue.bodyTypeLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectVehicleBody" name="vehicleBody" value="{{ $vehicle->vehicleBody->name }}" disabled>
+                                        <input class="form-control disabled" type="text" id="selectVehicleBody" name="vehicle_body_id" value="{{ __($vehicle->vehicleBody->nameTranslate) }}" disabled>
                                         @else
-                                        <select class="form-control selectpicker show-tick" id="selectVehicleBody" name="vehicleBody" requerido="no"
-                                                data-style="btn btn-sm btn-outline-light" data-size="5" 
+                                        <select class="form-control selectpicker show-tick" id="selectVehicleBody" name="vehicle_body_id" requerido="no"
+                                                data-style="btn btn-sm btn-outline-light" data-size="5"
                                                 data-live-search="true" data-live-Search-Placeholder="{{ __('catalogue.searchPlaceholder') }}">
                                             <option value="">{{ __('catalogue.selectOption') }}</option>
                                             <option data-divider="true"></option>
                                             @foreach ( $vehicleBodies as $vehicleBody )
                                             @if ($vehicleBody->id == old('vehicleBody'))
-                                            <option value="{{ $vehicleBody->id }}" selected>{{ $vehicleBody->name }}</option>
+                                            <option value="{{ $vehicleBody->id }}" selected>{{ __($vehicleBody->nameTranslate) }}</option>
                                             @else
-                                            <option value="{{ $vehicleBody->id }}">{{ $vehicleBody->name }}</option>
+                                            <option value="{{ $vehicleBody->id }}">{{ __($vehicleBody->nameTranslate) }}</option>
                                             @endif
                                             @endforeach
                                         </select>
@@ -131,17 +131,17 @@
                                 <div class="mb-4 text-left">
                                     <div class="form-group @error('vehicleType') is-invalid @enderror">
                                         <label class="required" for="selectVehicleType">{{ __('catalogue.typeLabel') }}</label>
-                                        @if ($vehicle !== null)
-                                        @if($vehicle->vehicleType === "C")
+                                        @if ( $vehicle !== null )
+                                        @if( $vehicle->vehicleType === "C" )
                                         <input class="form-control disabled" type="text" id="vehicleTypeName" name="vehicleType" value="{{ __('catalogue.carOption') }}" disabled>
-                                        @elseif($vehicle->vehicleType === "B")
+                                        @elseif( $vehicle->vehicleType === "B" )
                                         <input class="form-control disabled" type="text" id="vehicleTypeName" name="vehicleType" value="{{ __('catalogue.bikeOption') }}" disabled>
                                         @else
-                                        <input class="form-control disabled" type="text" id="vehicleTypeName" name="vehicleType" value="" disabled>
+                                        <input class="form-control disa" type="text" id="vehicleTypeName" name="vehicleType" value="" disabled>
                                         @endif
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectVehicleType" name="vehicleType" requerido="no"
-                                                data-style="btn btn-sm btn-outline-light" data-size="5" 
+                                                data-style="btn btn-sm btn-outline-light" data-size="5"
                                                 data-live-search="true" data-live-Search-Placeholder="{{ __('catalogue.searchPlaceholder') }}">
                                             <option value="">{{ __('catalogue.selectOption') }}</option>
                                             <option data-divider="true"></option>
@@ -161,18 +161,18 @@
                                     <div class="form-group @error('offerType') is-invalid @enderror">
                                         <label class="required" for="selectOfferType">{{ __('catalogue.offerTypeLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectOfferType" name="offerType" value="{{ $vehicle->vehicleOfferType->name }}" disabled>
+                                        <input class="form-control disabled" type="text" id="selectOfferType" name="vehicle_offer_type_id" value="{{ __($vehicle->vehicleOfferType->nameTranslate) }}" disabled>
                                         @else
-                                        <select class="form-control selectpicker show-tick" id="selectOfferType" name="offerType" requerido="no"
-                                                data-style="btn btn-sm btn-outline-light" data-size="5" 
+                                        <select class="form-control selectpicker show-tick" id="selectOfferType" name="vehicle_offer_type_id" requerido="no"
+                                                data-style="btn btn-sm btn-outline-light" data-size="5"
                                                 data-live-search="true" data-live-Search-Placeholder="{{ __('catalogue.searchPlaceholder') }}">
                                             <option value="">{{ __('catalogue.selectOption') }}</option>
                                             <option data-divider="true"></option>
                                             @foreach ( $offerTypes as $offerType )
                                             @if ($offerType->id == old('offerType'))
-                                            <option value="{{ $offerType->id }}" selected>{{ $offerType->name }}</option>
+                                            <option value="{{ $offerType->id }}" selected>{{ __($offerType->nameTranslate) }}</option>
                                             @else
-                                            <option value="{{ $offerType->id }}">{{ $offerType->name }}</option>
+                                            <option value="{{ $offerType->id }}">{{ __($offerType->nameTranslate) }}</option>
                                             @endif
                                             @endforeach
                                         </select>
@@ -190,7 +190,7 @@
                                             <div class="col-6">
                                                 <label class="required" for="powerKw">{{ __('catalogue.powerKwLabel') }}</label>
                                                 @if ($vehicle !== null)
-                                                <input class="form-control input-sm" type="number" id="powerKw" name="powerKw" 
+                                                <input class="form-control input-sm" type="number" id="powerKw" name="powerKw"
                                                        value="{{ $vehicle->powerKw }}" min="1" max="10000" step="1" onchange="kwToCv()">
                                                 @else
                                                 <input type="number" min="1" max="10000" step="1" value="{{ old('powerKw') }}"
@@ -200,10 +200,10 @@
                                             <div class="col-6">
                                                 <label class="required" for="powerCv">{{ __('catalogue.powerCvLabel') }}</label>
                                                 @if ($vehicle !== null)
-                                                <input class="form-control input-sm" type="number" id="powerKw" name="powerKw" 
+                                                <input class="form-control input-sm" type="number" id="powerKw" name="powerKw"
                                                        value="{{ intval($vehicle->powerKw * 1.34102) }}" min="1" max="10000" step="1" onchange="cvToKw()">
                                                 @else
-                                                <input type="number" min="1" max="10000" step="1" value="{{ old('powerCv') }}" 
+                                                <input type="number" min="1" max="10000" step="1" value="{{ old('powerCv') }}"
                                                        class="form-control input-sm " id="powerCv" name="powerCv" requerido="no" onchange="cvToKw()">
                                                 @endIf
                                             </div>
@@ -224,7 +224,7 @@
                                 <div class="mb-4 text-left">
                                     <div class="form-group @error('firstRegistration') is-invalid @enderror">
                                         <label class="required" for="textFirstRegistration">{{ __('catalogue.firstRegistrationLabel') }}</label>
-                                        <input class="form-control input-sm mb-1 disabled" type="text" id="textFirstRegistrationDisplay" name="firstRegistrationDisplay" 
+                                        <input class="form-control input-sm mb-1 disabled" type="text" id="textFirstRegistrationDisplay" name="firstRegistrationDisplay"
                                                value="@if ($vehicle !== null){{ $vehicle->firstRegistration }}@else{{ old('firstRegistration') }}@endif" disabled>
                                         <input type="hidden" id="textFirstRegistration" name="firstRegistration" value="@if ($vehicle !== null){{ $vehicle->firstRegistration }}@else{{ old('firstRegistration') }}@endif">
                                         <div class="row">
@@ -240,7 +240,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <select class="form-control selectpicker show-tick" id="selectYearRegistration" name="yearRegistration" requerido="no"
-                                                        data-style="btn btn-sm btn-outline-light" data-size="5" 
+                                                        data-style="btn btn-sm btn-outline-light" data-size="5"
                                                         data-live-search="true" data-live-Search-Placeholder="{{ __('catalogue.searchPlaceholder') }}">
                                                     <option value="">{{ __('catalogue.registrationYearLabel') }}</option>
                                                     <option data-divider="true"></option>
@@ -268,7 +268,7 @@
                                     <div class="form-group @error('mileage') is-invalid @enderror">
                                         <label class="required" for="mileage">{{ __('catalogue.mileageLabel') }}</label>
                                         <input class="form-control input-sm " id="mileage" name="mileage" requerido="no"
-                                               type="number" min="1" max="9999999" step="1" 
+                                               type="number" min="1" max="9999999" step="1"
                                                value="@if ($vehicle !== null){{ $vehicle->mileage }}@else{{ old('mileage') }}@endif">
                                     </div>
                                     @error('mileage')
@@ -290,18 +290,18 @@
                                     <div class="form-group @error('fuelCategory') is-invalid @enderror">
                                         <label class="required" for="selectFuelCategory">{{ __('catalogue.fuelLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectFuelCategory" name="fuelCategory" value="{{ $vehicle->fuelCategory->name }}" disabled>
+                                        <input class="form-control disabled" type="text" id="selectFuelCategory" name="fuel_category_id" value="{{ __($vehicle->fuelCategory->nameTranslate) }}" disabled>
                                         @else
-                                        <select class="form-control selectpicker show-tick" id="selectFuelCategory" name="fuelCategory" requerido="no"
-                                                data-style="btn btn-sm btn-outline-light" data-size="5" 
+                                        <select class="form-control selectpicker show-tick" id="selectFuelCategory" name="fuel_category_id" requerido="no"
+                                                data-style="btn btn-sm btn-outline-light" data-size="5"
                                                 data-live-search="true" data-live-Search-Placeholder="{{ __('catalogue.searchPlaceholder') }}">
                                             <option value="">{{ __('catalogue.selectOption') }}</option>
                                             <option data-divider="true"></option>
                                             @foreach ( $fuelCategories as $fuel )
                                             @if ( $fuel->id == old('fuelCategory') )
-                                            <option value="{{ $fuel->id }}" selected>{{ $fuel->name }}</option>
+                                            <option value="{{ $fuel->id }}" selected>{{ __($fuel->nameTranslate) }}</option>
                                             @else
-                                            <option value="{{ $fuel->id }}">{{ $fuel->name }}</option>
+                                            <option value="{{ $fuel->id }}">{{ __($fuel->nameTranslate) }}</option>
                                             @endif
                                             @endforeach
                                         </select>
@@ -317,10 +317,10 @@
                                     <div id="divElectricConsumptionCombined" class="form-group mb-4 text-left">
                                         <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="electricConsumptionCombined">{{ __('catalogue.electricConsumptionLabel') }}</label>
                                         <div class="input-group">
-                                            <input class="form-control input-sm" type="number" nim="0" max="99.9" step=".1" id="electricConsumptionCombined" name="electricConsumptionCombined" 
+                                            <input class="form-control input-sm" type="number" nim="0" max="99.9" step=".1" id="electricConsumptionCombined" name="electricConsumptionCombined"
                                                    value="@if ($vehicle !== null){{ $vehicle->electricConsumptionCombined }}@else{{ old('electricConsumptionCombined') }}@endif">
                                             <div class="input-group-append">
-                                                <div class="input-group-text bg-orange text-darker border-secondary">{{ __('catalogue.electricConsumptionUnities') }}</div>
+                                                <div class="input-group-text bg-orange text-darker ">{{ __('catalogue.electricConsumptionUnities') }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -333,10 +333,10 @@
                                             <div class="col-12">
                                                 <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="fuelConsumptionUrban">{{ __('catalogue.fuelConsumptionUrbanLabel') }}</label>
                                                 <div class="input-group">
-                                                    <input class="form-control input-sm" type="number" nim="0" max="99.9" step=".1" id="fuelConsumptionUrban" name="fuelConsumptionUrban" 
+                                                    <input class="form-control input-sm" type="number" nim="0" max="99.9" step=".1" id="fuelConsumptionUrban" name="fuelConsumptionUrban"
                                                            value="@if ($vehicle !== null){{ $vehicle->fuelConsumptionUrban }}@else{{ old('fuelConsumptionUrban') }}@endif">
                                                     <div class="input-group-append">
-                                                        <div class="input-group-text bg-orange text-darker border-secondary">{{ __('catalogue.fuelConsumptionUnities') }}</div>
+                                                        <div class="input-group-text bg-orange text-darker ">{{ __('catalogue.fuelConsumptionUnities') }}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -349,10 +349,10 @@
                                             <div class="col-12">
                                                 <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="fuelConsumptionHighway">{{ __('catalogue.fuelConsumptionHighwayLabel') }}</label>
                                                 <div class="input-group">
-                                                    <input class="form-control input-sm" type="number" nim="0" max="99.9" step=".1" id="fuelConsumptionHighway" name="fuelConsumptionHighway" 
+                                                    <input class="form-control input-sm" type="number" nim="0" max="99.9" step=".1" id="fuelConsumptionHighway" name="fuelConsumptionHighway"
                                                            value="@if ($vehicle !== null){{ $vehicle->fuelConsumptionHighway }}@else{{ old('fuelConsumptionHighway') }}@endif">
                                                     <div class="input-group-append">
-                                                        <div class="input-group-text bg-orange text-darker border-secondary">{{ __('catalogue.fuelConsumptionUnities') }}</div>
+                                                        <div class="input-group-text bg-orange text-darker ">{{ __('catalogue.fuelConsumptionUnities') }}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -365,10 +365,10 @@
                                             <div class="col-12">
                                                 <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="fuelConsumptionCombined">{{ __('catalogue.fuelConsumptionCombinedLabel') }}</label>
                                                 <div class="input-group">
-                                                    <input class="form-control input-sm" type="number" nim="0" max="99.9" step=".1" id="fuelConsumptionCombined" name="fuelConsumptionCombined" 
+                                                    <input class="form-control input-sm" type="number" nim="0" max="99.9" step=".1" id="fuelConsumptionCombined" name="fuelConsumptionCombined"
                                                            value="@if ($vehicle !== null){{ $vehicle->fuelConsumptionCombined }}@else{{ old('fuelConsumptionCombined') }}@endif">
                                                     <div class="input-group-append">
-                                                        <div class="input-group-text bg-orange text-darker border-secondary">{{ __('catalogue.fuelConsumptionUnities') }}</div>
+                                                        <div class="input-group-text bg-orange text-darker ">{{ __('catalogue.fuelConsumptionUnities') }}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -387,18 +387,18 @@
                                     <div class="form-group @error('emissionsSticker') is-invalid @enderror">
                                         <label class="required" for="selectEmissionsSticker">{{ __('catalogue.emissionsStickerLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="emissionsSticker" name="emissionsSticker" value="{{ $vehicle->emissionsSticker->name }}" disabled>
+                                        <input class="form-control disabled" type="text" id="emissionsSticker" name="emission_sticker_id" value="{{ __($vehicle->emissionsSticker->nameTranslate) }}" disabled>
                                         @else
-                                        <select class="form-control selectpicker show-tick" id="selectEmissionsSticker" name="emissionsSticker" requerido="no"
-                                                data-style="btn btn-sm btn-outline-light" data-size="5" 
+                                        <select class="form-control selectpicker show-tick" id="selectEmissionsSticker" name="emission_sticker_id" requerido="no"
+                                                data-style="btn btn-sm btn-outline-light" data-size="5"
                                                 data-live-search="true" data-live-Search-Placeholder="{{ __('catalogue.searchPlaceholder') }}">
                                             <option value="">{{ __('catalogue.selectOption') }}</option>
                                             <option data-divider="true"></option>
                                             @foreach ( $emissionsStickers as $sticker )
                                             @if ( $sticker->id == old('emissionsSticker') )
-                                            <option value="{{ $sticker->id }}" selected>{{ $sticker->name }}</option>
+                                            <option value="{{ $sticker->id }}" selected>{{ __($sticker->nameTranslate) }}</option>
                                             @else
-                                            <option value="{{ $sticker->id }}">{{ $sticker->name }}</option>
+                                            <option value="{{ $sticker->id }}">{{ __($sticker->nameTranslate) }}</option>
                                             @endif
                                             @endforeach
                                         </select>
@@ -414,18 +414,18 @@
                                     <div class="form-group @error('efficiencyClass') is-invalid @enderror">
                                         <label class="required" for="selectEfficiencyClass">{{ __('catalogue.efficiencyClassLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectEfficiencyClass" name="efficiencyClass" value="{{ $vehicle->efficiencyClass->name }}" disabled>
+                                        <input class="form-control disabled" type="text" id="selectEfficiencyClass" name="efficiencyClass" value="{{ __($vehicle->efficiencyClass->nameTranslate) }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectEfficiencyClass" name="efficiencyClass" requerido="no"
-                                                data-style="btn btn-sm btn-outline-light" data-size="5" 
+                                                data-style="btn btn-sm btn-outline-light" data-size="5"
                                                 data-live-search="true" data-live-Search-Placeholder="{{ __('catalogue.searchPlaceholder') }}">
                                             <option value="">{{ __('catalogue.selectOption') }}</option>
                                             <option data-divider="true"></option>
                                             @foreach ( $efficiencyClasses as $efficiencyClass )
                                             @if ( $efficiencyClass->id == old('efficiencyClass') )
-                                            <option value="{{ $efficiencyClass->id }}" selected="">{{ $efficiencyClass->name }}</option>
+                                            <option value="{{ $efficiencyClass->id }}" selected="">{{ __($efficiencyClass->nameTranslate) }}</option>
                                             @else
-                                            <option value="{{ $efficiencyClass->id }}">{{ $efficiencyClass->name }}</option>
+                                            <option value="{{ $efficiencyClass->id }}">{{ __($efficiencyClass->nameTranslate) }}</option>
                                             @endif
                                             @endforeach
                                         </select>
@@ -441,10 +441,10 @@
                                     <div class="form-group @error('co2') is-invalid @enderror">
                                         <label class="required" for="co2">{{ __('catalogue.emissionsLabel') }}</label>
                                         <div class="input-group">
-                                            <input class="form-control input-sm" type="number" nim="0" max="9999" step="1" id="co2" name="co2" 
+                                            <input class="form-control input-sm" type="number" nim="0" max="9999" step="1" id="co2" name="co2"
                                                    value="@if ($vehicle !== null){{ $vehicle->co2 }}@else{{ old('co2') }}@endif">
                                             <div class="input-group-append">
-                                                <div class="input-group-text bg-orange text-darker border-secondary">{{ __('catalogue.emissionsUnities') }}</div>
+                                                <div class="input-group-text bg-orange text-darker ">{{ __('catalogue.emissionsUnities') }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -467,19 +467,19 @@
                                     <div class="form-group @error('driveType') is-invalid @enderror">
                                         <label class="required" for="selectDriveType">{{ __('catalogue.driveTypeLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectDriveType" name="driveType" 
-                                               value="{{ $vehicle->driveType->name }}" requerido="no" disabled>
+                                        <input class="form-control disabled" type="text" id="selectDriveType" name="drive_type_id"
+                                               value="{{ __($vehicle->driveType->nameTranslate) }}" requerido="no" disabled>
                                         @else
-                                        <select class="form-control selectpicker show-tick" id="selectDriveType" name="driveType" requerido="no"
-                                                data-style="btn btn-sm btn-outline-light" data-size="5" 
+                                        <select class="form-control selectpicker show-tick" id="selectDriveType" name="drive_type_id" requerido="no"
+                                                data-style="btn btn-sm btn-outline-light" data-size="5"
                                                 data-live-search="true" data-live-Search-Placeholder="{{ __('catalogue.searchPlaceholder') }}">
                                             <option value="">{{ __('catalogue.selectOption') }}</option>
                                             <option data-divider="true"></option>
                                             @foreach ( $driveTypes as $driveType )
                                             @if ( $driveType->id == old('driveType') )
-                                            <option value="{{ $driveType->id }}" selected="">{{ $driveType->name }}</option>
+                                            <option value="{{ $driveType->id }}" selected="">{{ __($driveType->nameTranslate) }}</option>
                                             @else
-                                            <option value="{{ $driveType->id }}">{{ $driveType->name }}</option>
+                                            <option value="{{ $driveType->id }}">{{ __($driveType->nameTranslate) }}</option>
                                             @endif
                                             @endforeach
                                         </select>
@@ -495,19 +495,19 @@
                                     <div class="form-group @error('transmission') is-invalid @enderror">
                                         <label class="required" for="selectTransmission">{{ __('catalogue.transmissionLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectTransmission" name="transmission" requerido="no"
-                                               value="{{ $vehicle->transmission->name }}" disabled>
+                                        <input class="form-control disabled" type="text" id="selectTransmission" name="transmission_id" requerido="no"
+                                               value="{{ __($vehicle->transmission->nameTranslate) }}" disabled>
                                         @else
-                                        <select class="form-control selectpicker show-tick" id="selectTransmission" name="transmission" requerido="no"
-                                                data-style="btn btn-sm btn-outline-light" data-size="5" 
+                                        <select class="form-control selectpicker show-tick" id="selectTransmission" name="transmission_id" requerido="no"
+                                                data-style="btn btn-sm btn-outline-light" data-size="5"
                                                 data-live-search="true" data-live-Search-Placeholder="{{ __('catalogue.searchPlaceholder') }}">
                                             <option value="">{{ __('catalogue.selectOption') }}</option>
                                             <option data-divider="true"></option>
                                             @foreach ( $transmissions as $transmission )
                                             @if ( $transmission->id == old('transmission') )
-                                            <option value="{{ $transmission->id }}" selected="">{{ $transmission->name }}</option>
+                                            <option value="{{ $transmission->id }}" selected="">{{ __($transmission->nameTranslate) }}</option>
                                             @else
-                                            <option value="{{ $transmission->id }}">{{ $transmission->name }}</option>
+                                            <option value="{{ $transmission->id }}">{{ __($transmission->nameTranslate) }}</option>
                                             @endif
                                             @endforeach
                                         </select>
@@ -543,7 +543,7 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="cylinders">{{ __('catalogue.cylindersLabel') }}</label>
-                                                <input class="form-control input-sm" type="number" nim="0" max="99" step="1" id="cylinders" name="cylinders" 
+                                                <input class="form-control input-sm" type="number" nim="0" max="99" step="1" id="cylinders" name="cylinders"
                                                        value="@if ($vehicle !== null){{ $vehicle->cylinders }}@else{{ old('cylinders') }}@endif">
                                             </div>
                                         </div>
@@ -555,10 +555,10 @@
                                             <div class="col-12">
                                                 <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="cylinderCapacity">{{ __('catalogue.cylinderCapacityLabel') }}</label>
                                                 <div class="input-group">
-                                                    <input class="form-control input-sm" type="number" nim="0" max="9999" step="1" id="cylinderCapacity" name="cylinderCapacity" 
+                                                    <input class="form-control input-sm" type="number" nim="0" max="9999" step="1" id="cylinderCapacity" name="cylinderCapacity"
                                                            value="@if ($vehicle !== null){{ $vehicle->cylinderCapacity }}@else{{ old('cylinderCapacity') }}@endif">
                                                     <div class="input-group-append">
-                                                        <div class="input-group-text bg-orange text-darker border-secondary">{{ __('catalogue.cylinderCapacityUnitsLabel') }}</div>
+                                                        <div class="input-group-text bg-orange text-darker ">{{ __('catalogue.cylinderCapacityUnitsLabel') }}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -570,10 +570,10 @@
                                 <div class="form-group mb-4 text-left">
                                     <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="emptyWeight">{{ __('catalogue.emptyWeightLabel') }}</label>
                                     <div class="input-group">
-                                        <input class="form-control input-sm" type="number" nim="0" max="9999" step="1" id="emptyWeight" name="emptyWeight" 
+                                        <input class="form-control input-sm" type="number" nim="0" max="9999" step="1" id="emptyWeight" name="emptyWeight"
                                                value="@if ($vehicle !== null){{ $vehicle->emptyWeight }}@else{{ old('emptyWeight') }}@endif">
                                         <div class="input-group-append">
-                                            <div class="input-group-text bg-orange text-darker border-secondary">{{ __('catalogue.emptyWeightUnitsLabel') }}</div>
+                                            <div class="input-group-text bg-orange text-darker">{{ __('catalogue.emptyWeightUnitsLabel') }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -591,7 +591,7 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="vinNumber">{{ __('catalogue.vinNumberLabel') }}</label>
-                                            <input class="form-control input-sm" type="text" id="vinNumber" name="vinNumber" maxlength="17"
+                                            <input class="form-control input-sm" type="text" id="vinNumber" name="vin" maxlength="17"
                                                    onchange="this.value = this.value.toUpperCase()"
                                                    value="@if ($vehicle !== null){{ $vehicle->vin }}@else{{ old('vinNumber') }}@endif">
                                         </div>
@@ -603,7 +603,7 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="licensePlate">{{ __('catalogue.licensePlateLabel') }}</label>
-                                            <input class="form-control input-sm" type="text" id="licensePlate" name="licensePlate" maxlength="17"
+                                            <input class="form-control input-sm" type="text" id="licensePlate" name="licencePlateNumber" maxlength="17"
                                                    onchange="formatLicensePlate()"
                                                    value="@if ($vehicle !== null){{ $vehicle->licencePlateNumber }}@else{{ old('licensePlate') }}@endif">
                                         </div>
@@ -687,7 +687,7 @@
                                             <label class="required" for="selectUpholstery">{{ __('catalogue.upholsteryLabel') }}</label>
                                             @if ($vehicle !== null)
                                             <input class="form-control disabled" type="text" id="selectUpholstery" name="upholstery" requerido="no"
-                                                   value="{{ $vehicle->upholstery->name }}" disabled>
+                                                   value="{{ __($vehicle->upholstery->nameTranslate) }}" disabled>
                                             @else
                                             <select class="form-control selectpicker show-tick" id="selectUpholstery" name="upholstery" requerido="no"
                                                     data-style="btn btn-sm btn-outline-light" data-size="6">
@@ -698,15 +698,15 @@
                                                 <?php $other = $upholstery; ?>
                                                 @else
                                                 @if ( $upholstery->id == old('upholstery') )
-                                                <option value="{{ $upholstery->id }}" selected="">{{ $upholstery->name }}</option>
+                                                <option value="{{ $upholstery->id }}" selected="">{{ __($upholstery->nameTranslate) }}</option>
                                                 @else
-                                                <option value="{{ $upholstery->id }}">{{ $upholstery->name }}</option>
+                                                <option value="{{ $upholstery->id }}">{{ __($upholstery->nameTranslate) }}</option>
                                                 @endif
                                                 @endif
                                                 @endforeach
                                                 <option data-divider="true"></option>
                                                 @if ($other !== null)
-                                                <option value="{{ $other->id }}">{{ $other->name }}</option>
+                                                <option value="{{ $other->id }}">{{ __($other->nameTranslate) }}</option>
                                                 @endif
                                             </select>
                                             @endif
@@ -722,10 +722,10 @@
                                         <div class="form-group @error('interiorColor') is-invalid @enderror">
                                             <label class="required" for="selectInteriorColor">{{ __('catalogue.interiorColorLabel') }}</label>
                                             @if ($vehicle !== null)
-                                            <input class="form-control disabled" type="text" id="selectInteriorColor" name="interiorColor" requerido="no"
-                                                   value="{{ $vehicle->interiorColor->name }}" disabled>
+                                            <input class="form-control disabled" type="text" id="selectInteriorColor" name="interior_color_id" requerido="no"
+                                                   value="{{ __($vehicle->interiorColor->nameTranslate) }}" disabled>
                                             @else
-                                            <select class="form-control selectpicker show-tick" id="selectInteriorColor" name="interiorColor" requerido="no"
+                                            <select class="form-control selectpicker show-tick" id="selectInteriorColor" name="interior_color_id" requerido="no"
                                                     data-style="btn btn-sm btn-outline-light" data-size="6">
                                                 <option value="">{{ __('catalogue.selectOption') }}</option>
                                                 <option data-divider="true"></option>
@@ -734,16 +734,16 @@
                                                 <?php $other = $color; ?>
                                                 @else
                                                 @if ( $color->id == old('interiorColor') )
-                                                <option value="{{ $color->id }}" selected="">{{ $color->name }}</option>
+                                                <option value="{{ $color->id }}" selected="">{{ __($color->nameTranslate) }}</option>
                                                 @else
-                                                <option value="{{ $color->id }}">{{ $color->name }}</option>
+                                                <option value="{{ $color->id }}">{{ __($color->nameTranslate) }}</option>
                                                 @endif
                                                 @endif
                                                 @endforeach
 
                                                 <option data-divider="true"></option>
                                                 @if ($other !== null)
-                                                <option value="{{ $other->id }}">{{ $other->name }}</option>
+                                                <option value="{{ $other->id }}">{{ __($other->nameTranslate) }}</option>
                                                 @endif
                                             </select>
                                             @endif
@@ -765,18 +765,18 @@
                                     <div class="form-group @error('bodyColor') is-invalid @enderror">
                                         <label class="required" for="selectBodyColor">{{ __('catalogue.bodyColorLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectBodyColor" name="bodyColor" requerido="no"
-                                               value="{{ $vehicle->bodyColor->name }}" disabled>
+                                        <input class="form-control disabled" type="text" id="selectBodyColor" name="body_color_id" requerido="no"
+                                               value="{{ __($vehicle->bodyColor->nameTranslate) }}" disabled>
                                         @else
-                                        <select class="form-control selectpicker show-tick" id="selectBodyColor" name="bodyColor" requerido="no"
+                                        <select class="form-control selectpicker show-tick" id="selectBodyColor" name="body_color_id" requerido="no"
                                                 data-style="btn btn-sm btn-outline-light" data-size="6">
                                             <option value="">{{ __('catalogue.selectOption') }}</option>
                                             <option data-divider="true"></option>
                                             @foreach ( $bodyColors as $color )
                                             @if ( $color->id == old('bodyColor') )
-                                            <option value="{{ $color->id }}" selected="">{{ $color->name }}</option>
+                                            <option value="{{ $color->id }}" selected="">{{ __($color->nameTranslate) }}</option>
                                             @else
-                                            <option value="{{ $color->id }}">{{ $color->name }}</option>
+                                            <option value="{{ $color->id }}">{{ __($color->nameTranslate) }}</option>
                                             @endif
                                             @endforeach
                                         </select>
@@ -792,7 +792,7 @@
                                                 <div class="col-1">
                                                     <div class="switch">
                                                         <input type="checkbox" id="isMetallic" name="metallic" checked=""
-                                                               onchange="toggles(this)" value="{{ old('isMetallic') ?? $vehicle->metallic ?? ('0') }}"> 
+                                                               onchange="toggles(this)" value="{{ old('isMetallic') ?? $vehicle->metallic ?? ('0') }}">
                                                         <span class="slider round"></span>
                                                     </div>
                                                 </div>
@@ -817,7 +817,7 @@
                                 <div class="mb-4 text-left">
                                     <div class="form-group @error('nextInspection') is-invalid @enderror">
                                         <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="textNextInspection">{{ __('catalogue.nextInspectionLabel') }}</label>
-                                        <input class="form-control input-sm mb-1 disabled" type="text" id="textNextInspectionDisplay" name="nextInspectionDisplay" 
+                                        <input class="form-control input-sm mb-1 disabled" type="text" id="textNextInspectionDisplay" name="nextInspectionDisplay"
                                                value="@if ($vehicle !== null){{ $vehicle->nextInspection }}@else{{ old('nextInspection') }}@endif" disabled>
                                         <input type="hidden" id="textNextInspection" name="nextInspection" value="@if ($vehicle !== null){{ $vehicle->nextInspection }}@else{{ old('nextInspection') }}@endif">
                                         <div class="row">
@@ -833,7 +833,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <select class="form-control selectpicker show-tick" id="selectYearNextInspection" name="yearNextInspection"
-                                                        data-style="btn btn-sm btn-outline-light" data-size="5" 
+                                                        data-style="btn btn-sm btn-outline-light" data-size="5"
                                                         data-live-search="true" data-live-Search-Placeholder="{{ __('catalogue.searchPlaceholder') }}">
                                                     <option value="">{{ __('catalogue.registrationYearLabel') }}</option>
                                                     <option data-divider="true"></option>
@@ -854,7 +854,7 @@
                                 <div class="mb-4 text-left">
                                     <div class="form-group @error('lastTechnicalService') is-invalid @enderror">
                                         <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="lastTechnicalService">{{ __('catalogue.lastTechnicalLabel') }}</label>
-                                        <input class="form-control input-sm mb-1 disabled" type="text" id="textLastTechnicalServiceDisplay" name="lastTechnicalServiceDisplay" 
+                                        <input class="form-control input-sm mb-1 disabled" type="text" id="textLastTechnicalServiceDisplay" name="lastTechnicalServiceDisplay"
                                                value="@if ($vehicle !== null){{ $vehicle->lastTechnicalService }}@else{{ old('lastTechnicalService') }}@endif" disabled>
                                         <input type="hidden" id="textLastTechnicalService" name="lastTechnicalService" value="@if ($vehicle !== null){{ $vehicle->lastTechnicalService }}@else{{ old('lastTechnicalService') }}@endif">
                                         <div class="row">
@@ -869,8 +869,8 @@
                                                 </select>
                                             </div>
                                             <div class="col-6">
-                                                <select class="form-control selectpicker show-tick" id="selectYearLastTechnicalService" name="yearLastTechnicalService" 
-                                                        data-style="btn btn-sm btn-outline-light" data-size="5" 
+                                                <select class="form-control selectpicker show-tick" id="selectYearLastTechnicalService" name="yearLastTechnicalService"
+                                                        data-style="btn btn-sm btn-outline-light" data-size="5"
                                                         data-live-search="true" data-live-Search-Placeholder="{{ __('catalogue.searchPlaceholder') }}">
                                                     <option value="">{{ __('catalogue.registrationYearLabel') }}</option>
                                                     <option data-divider="true"></option>
@@ -891,12 +891,12 @@
                                 <div class="mb-4 text-left">
                                     <div class="form-group @error('lastCamBeltService') is-invalid @enderror">
                                         <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="lastCamBeltService">{{ __('catalogue.lastCamBeltServiceLabel') }}</label>
-                                        <input class="form-control input-sm mb-1 disabled" type="text" id="textLastCamBeltServiceDisplay" name="lastCamBeltServiceDisplay" 
+                                        <input class="form-control input-sm mb-1 disabled" type="text" id="textLastCamBeltServiceDisplay" name="lastCamBeltServiceDisplay"
                                                value="@if ($vehicle !== null){{ $vehicle->lastCamBeltService }}@else{{ old('lastCamBeltService') }}@endif" disabled>
                                         <input type="hidden" id="textLastCamBeltService" name="lastCamBeltService" value="@if ($vehicle !== null){{ $vehicle->lastCamBeltService }}@else{{ old('lastCamBeltService') }}@endif">
                                         <div class="row">
                                             <div class="col-6">
-                                                <select class="form-control selectpicker show-tick" id="selectMonthLastCamBeltService" name="monthLastCamBeltService" 
+                                                <select class="form-control selectpicker show-tick" id="selectMonthLastCamBeltService" name="monthLastCamBeltService"
                                                         data-style="btn btn-sm btn-outline-light" data-size="5">
                                                     <option value="">{{ __('catalogue.registrationMonthLabel') }}</option>
                                                     <option data-divider="true"></option>
@@ -906,8 +906,8 @@
                                                 </select>
                                             </div>
                                             <div class="col-6">
-                                                <select class="form-control selectpicker show-tick" id="selectYearLastCamBeltService" name="yearLastCamBeltService" 
-                                                        data-style="btn btn-sm btn-outline-light" data-size="5" 
+                                                <select class="form-control selectpicker show-tick" id="selectYearLastCamBeltService" name="yearLastCamBeltService"
+                                                        data-style="btn btn-sm btn-outline-light" data-size="5"
                                                         data-live-search="true" data-live-Search-Placeholder="{{ __('catalogue.searchPlaceholder') }}">
                                                     <option value="">{{ __('catalogue.registrationYearLabel') }}</option>
                                                     <option data-divider="true"></option>
@@ -941,7 +941,7 @@
                                             <div class="col-1">
                                                 <div class="switch">
                                                     <input type="checkbox" id="fullServiceHistory" name="fullServiceHistory" checked=""
-                                                           onchange="toggles(this)" value="{{ old('fullServiceHistory') ?? $vehicle->fullServiceHistory ?? ('0') }}"> 
+                                                           onchange="toggles(this)" value="{{ old('fullServiceHistory') ?? $vehicle->fullServiceHistory ?? ('0') }}">
                                                     <span class="slider round"></span>
                                                 </div>
                                             </div>
@@ -957,7 +957,7 @@
                                             <div class="col-1">
                                                 <div class="switch">
                                                     <input type="checkbox" id="nonSmoking" name="nonSmoking" checked=""
-                                                           onchange="toggles(this)" value="{{ old('nonSmoking') ?? $vehicle->nonSmoking ?? ('0') }}"> 
+                                                           onchange="toggles(this)" value="{{ old('nonSmoking') ?? $vehicle->nonSmoking ?? ('0') }}">
                                                     <span class="slider round"></span>
                                                 </div>
                                             </div>
@@ -973,7 +973,7 @@
                                             <div class="col-1">
                                                 <div class="switch">
                                                     <input type="checkbox" id="accident" name="accident" checked=""
-                                                           onchange="toggles(this)" value="{{ old('accident') ?? $vehicle->accident ?? ('0') }}"> 
+                                                           onchange="toggles(this)" value="{{ old('accident') ?? $vehicle->accident ?? ('0') }}">
                                                     <span class="slider round"></span>
                                                 </div>
                                             </div>
@@ -1003,7 +1003,7 @@
                                     @if ($vehicle !== null)
                                     <input class="form-control disabled" type="text" id="selectPreviousOwners" name="previousOwners" value="{{ $vehicle->previousOwners }}" disabled>
                                     @else
-                                    <select class="form-control selectpicker show-tick" id="selectPreviousOwners" name="previousOwners" 
+                                    <select class="form-control selectpicker show-tick" id="selectPreviousOwners" name="previousOwners"
                                             data-style="btn btn-sm btn-outline-light" data-size="6">
                                         <option value="">{{ __('catalogue.selectOption') }}</option>
                                         <option data-divider="true"></option>
@@ -1028,78 +1028,192 @@
                             <!-- Description -->
                             <div class="form-group col-12 text-left">
                                 <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="description">{{ __('catalogue.descriptionLabel') }}</label>
-                                <textarea class="form-control @error('description') is-invalid @enderror" id="description" 
+                                <textarea class="form-control @error('description') is-invalid @enderror" id="description"
                                           name="description">@if ($vehicle !== null){{ $vehicle->description }}@else{{ old('description') }}@endif</textarea>
                             </div>
                         </fieldset>
 
+                        <div class="row my-5">
+                            <fieldset class="col-md-6">
 
-                        <fieldset class="row my-5">
-                            <!-- Price -->
-                            <div class="form-group col-md-6 col-lg-4 mb-4 text-left">
-                                <div class="form-group @error('price') is-invalid @enderror">
-                                    <label class="required" for="price">{{ __('catalogue.priceLabel') }}</label>
-                                    <div class="input-group">
-                                        <input class="form-control input-sm" id="price" name="price" requerido="no"
-                                               type="number" min="0" max="9999999.99" step=".01"
-                                               value="@if ($vehicle !== null){{ $vehicle->price }}@else{{ old('price') }}@endif">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text bg-orange text-darker border-secondary">€</div>
+                                <!-- Availability -->
+                                <div class="mb-5 text-left">
+                                    <div class="form-group @error('availability_type_id') is-invalid @enderror">
+                                        <label class="required" for="selectAvailabilityType">{{ __('catalogue.availabilityLabel') }}</label>
+                                        @if ($vehicle !== null)
+                                        <input class="form-control disabled" type="text" id="selectAvailabilityType" name="availability_type_id" requerido="no"
+                                               value="{{ __($vehicle->availability->nameTranslate) }}" disabled>
+                                        @else
+                                        <select class="form-control selectpicker show-tick" id="selectAvailabilityType" name="availability_type_id" requerido="no"
+                                                data-style="btn btn-sm btn-outline-light" data-size="6">
+                                            <option value="">{{ __('catalogue.selectOption') }}</option>
+                                            <option data-divider="true"></option>
+                                            @foreach ( $avalabilities as $availability )
+                                            @if ( $availability->id == old('availability_type_id') )
+                                            <option value="{{ $availability->id }}" selected="">{{ __($availability->nameTranslate) }}</option>
+                                            @else
+                                            <option value="{{ $availability->id }}">{{ __($availability->nameTranslate) }}</option>
+                                            @endif
+                                            @endforeach
+                                        </select>
+                                        @endif
+                                    </div>
+
+                                    @error('availability_type_id')
+                                    <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div id="deliveryDateGroup" class="collapse">
+                                    <!-- Delivery Date -->
+                                    <div class="mb-4 text-left">
+                                        <div class="form-group @error('nextInspection') is-invalid @enderror">
+                                            <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="textDeliveryDate">{{ __('catalogue.deliveryDateLabel') }}</label>
+                                            <input class="form-control input-sm mb-1 disabled" type="text" id="deliveryDateDisplay" name="deliveryDateDisplay"
+                                                   value="@if ($vehicle !== null){{ $vehicle->deliveryDate }}@else{{ old('deliveryDate') }}@endif" disabled>
+                                            <input type="hidden" id="deliveryDate" name="deliveryDate" value="@if ($vehicle !== null){{ $vehicle->deliveryDate }}@else{{ old('deliveryDate') }}@endif">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <select class="form-control selectpicker show-tick" id="selectDayDeliveryDate" name="selectDayDeliveryDate"
+                                                            data-style="btn btn-sm btn-outline-light" data-size="5">
+                                                        <option value="">{{ __('catalogue.dayLabel') }}</option>
+                                                        <option data-divider="true"></option>
+                                                        @for ($i = 1; $i < 32; $i++)
+                                                        <option value="{{ $i }}">{{ $i }}</option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
+                                                <div class="col-4">
+                                                    <select class="form-control selectpicker show-tick" id="selectMonthDeliveryDate" name="selectMonthDeliveryDate"
+                                                            data-style="btn btn-sm btn-outline-light" data-size="5">
+                                                        <option value="">{{ __('catalogue.monthLabel') }}</option>
+                                                        <option data-divider="true"></option>
+                                                        @for ($i = 1; $i < 13; $i++)
+                                                        <option value="{{ $i }}">{{ __("translate.monthName.$i") }}</option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
+                                                <div class="col-4">
+                                                    <select class="form-control selectpicker show-tick" id="selectYearDeliveryDate" name="selectYearDeliveryDate"
+                                                            data-style="btn btn-sm btn-outline-light" data-size="5"
+                                                            data-live-search="false" data-live-Search-Placeholder="{{ __('catalogue.searchPlaceholder') }}">
+                                                        <option value="">{{ __('catalogue.yearLabel') }}</option>
+                                                        <option data-divider="true"></option>
+                                                        <?php $actualYear = date("Y", time()); ?>
+                                                        @for ($i = $actualYear; $i < ($actualYear + 4); $i++)
+                                                        <option value="{{ $i }}">{{ $i }}</option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
+                                        @error('nextInspection')
+                                        <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
-                                @error('price')
-                                <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
-                                @enderror
-                            </div>
+
+                                <div id="deliveryDaysGroup" class="collapse">
+                                    <!-- Delivery Days -->
+                                    <div class="form-group text-left">
+                                        <div class="form-group @error('price') is-invalid @enderror">
+                                            <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="price">{{ __('catalogue.deliveryDaysLabel') }}</label>
+                                            <div class="input-group">
+                                                <input class="form-control input-sm" id="deliveryDays" name="deliveryDays" requerido="no"
+                                                       type="number" min="1" max="52" step="1"
+                                                       value="@if ($vehicle !== null){{ $vehicle->deliveryDays }}@else{{ old('deliveryDays') }}@endif">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text bg-orange text-darker ">{{ __('catalogue.availabilityWeeksLabel') }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @error('price')
+                                        <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                            </fieldset>
 
                             <!-- SEPARATOR -->
-                            <div class="col-md-6 col-lg-2"></div>
-                            
-                            <!-- isSold Toggle -->
-                            <div class="form-group col-lg-3 text-left text-md-right">
-                                <label class="toggle mb-3" for="isSold">
-                                    <div class="row">
-                                        <div class="col-10">
-                                            <span>{{ __('catalogue.iSsoldLabel') }}</span>
-                                        </div>
-                                        <div class="col-2">
-                                            <div class="switch">
-                                                <input type="checkbox" id="isSold" name="sold" checked=""
-                                                       onchange="toggles(this)" value="{{ old('sold') ?? $vehicle->sold ?? ('0') }}">
-                                                <span class="slider round"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </label>
-                            </div>
-                            
-                            <!-- isVisible Toggle -->
-                            <div class="form-group col-lg-3 text-left text-md-right">
-                                <label class="toggle mb-3" for="isVisible">
-                                    <div class="row">
-                                        <div class="col-10">
-                                            <span>{{ __('catalogue.visibleLabel') }}</span>
-                                        </div>
-                                        <div class="col-2">
-                                            <div class="switch">
-                                                <input type="checkbox" id="isVisible" name="visible" checked=""
-                                                       onchange="toggles(this)" value="{{ old('visible') ?? $vehicle->visible ?? ('1') }}">
-                                                <span class="slider round"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </label>
-                            </div>
+                            <div class="col-md-1"></div>
 
-                        </fieldset>
+                            <fieldset class="col-md-5">
+
+                                <!-- Price -->
+                                <div class="form-group text-left">
+                                    <div class="form-group @error('price') is-invalid @enderror">
+                                        <label class="required" for="price">{{ __('catalogue.priceLabel') }}</label>
+                                        <div class="input-group">
+                                            <input class="form-control input-sm" id="price" name="price" requerido="no"
+                                                   type="number" min="0" max="9999999.99" step=".01"
+                                                   value="@if ($vehicle !== null){{ $vehicle->price }}@else{{ old('price') }}@endif">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text bg-orange text-darker ">€</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @error('price')
+                                    <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="row my-5">
+                            <fieldset class="col-md-6">
+
+                            </fieldset>
+
+                            <!-- SEPARATOR -->
+                            <div class="col-md-1"></div>
+
+                            <fieldset class="col-md-5">
+                                <!-- isSold Toggle -->
+                                <div class="form-group text-left text-md-center justify-content-center">
+                                    <label class="toggle mb-3" for="isSold">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <span>{{ __('catalogue.iSsoldLabel') }}</span>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="switch">
+                                                    <input type="checkbox" id="isSold" name="sold" checked=""
+                                                           onchange="toggles(this)" value="{{ old('sold') ?? $vehicle->sold ?? ('0') }}">
+                                                    <span class="slider round"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <!-- isVisible Toggle -->
+                                <div class="form-group text-left text-md-center justify-content-center">
+                                    <label class="toggle mb-3" for="isVisible">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <span>{{ __('catalogue.visibleLabel') }}</span>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="switch">
+                                                    <input type="checkbox" id="isVisible" name="visible" checked=""
+                                                           onchange="toggles(this)" value="{{ old('visible') ?? $vehicle->visible ?? ('1') }}">
+                                                    <span class="slider round"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+
+                            </fieldset>
+                        </div>
 
                         @if ($vehicle !== null)
                         <!-- EQUIPMENT -->
                         <div class="row">
                             <div class="col-12">
                                 <h4 class="text-center">
-                                    <a class="btn btn-block btn-primary" href="#vehicleEquipment" role="button" 
+                                    <a class="btn btn-block btn-primary" href="#vehicleEquipment" role="button"
                                        data-toggle="collapse" aria-expanded="false" aria-controls="vehicleEquipment">
                                         {{ __('catalogue.equipmentLabel') }}
                                     </a>
@@ -1110,26 +1224,26 @@
                                         @foreach ($equipment as $item)
                                         <?php
                                         $hasItem = 0;
-                                            if ($vehicle !== null){
-                                                foreach ($vehicle->equipment as $equipment){
-                                                    if ( $item->id === $equipment->id ){
-                                                        $hasItem = 1;
-                                                    }
+                                        if ($vehicle !== null) {
+                                            foreach ($vehicle->equipment as $equipment) {
+                                                if ($item->id === $equipment->id) {
+                                                    $hasItem = 1;
                                                 }
-                                            }        
+                                            }
+                                        }
                                         ?>
                                         <div class="col-1"></div>
                                         <div class="col-10 col-lg-4">
                                             <label class="toggle thin" for="equipmentId{{ $item->id }}">
                                                 <div class="row">
                                                     <div class="col-10">
-                                                        <span>{{ $item->name }}</span>
+                                                        <span>{{ __($item->nameTranslate) }}</span>
                                                     </div>
                                                     <div class="col-1">
                                                         <div class="switch">
-                                                            <input type="checkbox" id="equipmentId{{ $item->id }}" name="equipment['{{ $item->id }}']" 
+                                                            <input type="checkbox" id="equipmentId{{ $item->id }}" name="equipment['{{ $item->id }}']"
                                                                    checked="" onchange="toggles(this)"
-                                                                   value="{{ old('equipment.$item->id') ?? $hasItem ?? ('0') }}"> 
+                                                                   value="{{ old('equipment.$item->id') ?? $hasItem ?? ('0') }}">
                                                             <span class="slider round"></span>
                                                         </div>
                                                     </div>
@@ -1140,7 +1254,7 @@
                                         @endforeach
                                     </div>
                                     <p>
-                                        <a class="btn btn-block btn-primary" href="#vehicleEquipment" role="button" 
+                                        <a class="btn btn-block btn-primary" href="#vehicleEquipment" role="button"
                                            data-toggle="collapse" aria-expanded="false" aria-controls="vehicleEquipment">
                                             {{ __('catalogue.equipmentLabel') }}
                                         </a>
@@ -1156,7 +1270,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <h4 class="text-center">
-                                    <a class="btn btn-block btn-primary disabled" href="#vehicleImages" role="button" 
+                                    <a class="btn btn-block btn-primary disabled" href="#vehicleImages" role="button"
                                        data-toggle="collapse" aria-expanded="false" aria-controls="vehicleEquipment">
                                         {{ __('catalogue.sectionImagesLabel') }}
                                     </a>

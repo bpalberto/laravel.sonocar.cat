@@ -134,7 +134,7 @@
                                                         <dl>
                                                             <dt>{{ __('catalogue.offerTypeLabel') }}</dt>
                                                             <dd>
-                                                                {{ $vehicle->vehicleOfferType->name }}
+                                                                {{ __($vehicle->vehicleOfferType->nameTranslate) }}
                                                             </dd>
                                                             <dt class="">{{ __('catalogue.warrantyLabel') }}</dt>
                                                             <dd>
@@ -155,7 +155,7 @@
                                                         <dl>
                                                             <dt class="">{{ __('catalogue.transmissionLabel') }}</dt>
                                                             <dd>
-                                                                {{ $vehicle->transmission->name }}
+                                                                {{ __($vehicle->transmission->nameTranslate) }}
                                                             </dd>
                                                             <dt>{{ __('catalogue.gearsLabel') }}</dt>
                                                             <dd>
@@ -167,7 +167,7 @@
                                                             </dd>
                                                             <dt>{{ __('catalogue.tractionLabel') }}</dt>
                                                             <dd>
-                                                                {{ $vehicle->driveType->name }}
+                                                                {{ __($vehicle->driveType->nameTranslate) }}
                                                             </dd>
                                                         </dl>
                                                     </div>
@@ -196,15 +196,15 @@
                                                     </dd>
                                                     <dt>{{ __('catalogue.bodyColorLabel') }}</dt>
                                                     <dd>
-                                                        {{ $vehicle->bodyColor->name }}
+                                                        {{ __($vehicle->bodyColor->nameTranslate) }}
                                                     </dd>
                                                     <dt>{{ __('catalogue.interiorColorLabel') }}</dt>
                                                     <dd>
-                                                        {{ $vehicle->interiorColor->name }}
+                                                        {{ __($vehicle->interiorColor->nameTranslate) }}
                                                     </dd>
                                                     <dt>{{ __('catalogue.categoryLabel') }}</dt>
                                                     <dd>
-                                                        {{ $vehicle->vehicleBody->name }}
+                                                        {{ __($vehicle->vehicleBody->nameTranslate) }}
                                                     </dd>
                                                     <dt>{{ __('catalogue.doorsLabel') }}</dt>
                                                     <dd>
@@ -230,7 +230,7 @@
                                                 <dl>
                                                     <dt class="">{{ __('catalogue.fuelLabel') }}</dt>
                                                     <dd>
-                                                        {{ $vehicle->fuelCategory->name }}
+                                                        {{ __($vehicle->fuelCategory->nameTranslate) }}
                                                     </dd>
                                                     <dt>{{ __('catalogue.emissionsLabel') }}</dt>
                                                     <dd>
@@ -238,7 +238,7 @@
                                                     </dd>
                                                     <dt>{{ __('catalogue.emissionsStickerLabel') }}</dt>
                                                     <dd>
-                                                        {{ $vehicle->emissionsSticker->name }}
+                                                        {{ __($vehicle->emissionsSticker->nameTranslate) }}
                                                     </dd>
                                                 </dl>
                                             </div>
@@ -270,7 +270,7 @@
                                                 @foreach ($vehicle->equipment as $equipment)
 
                                                 <li>
-                                                    {{ $equipment->name }} 
+                                                    {{ __($equipment->nameTranslate) }} 
                                                     @if ($equipment->id == 15)
                                                     ({{ $vehicle->alloyWheelSize }} {{ __('catalogue.inchesLabel') }})
                                                     @endif
@@ -312,7 +312,7 @@
                                 <div class="form-group">
                                     <label class="form-label-outside" for="contact-us-message">{{ __('translate.formMsgLabel') }}</label>
                                     <textarea style="height:auto" rows="6" class="form-control" id="contact-us-message" name="message" 
-                                              data-constraints="@Required">{{ __('catalogue.orderMessage', [ "maker" =>$vehicle->maker->name , "model" => $vehicle->model->name , "version" => $vehicle->modelVersion , "color" => $vehicle->bodyColor->name ]) }}</textarea>
+                                              data-constraints="@Required">{{ __('catalogue.orderMessage', [ "maker" =>$vehicle->maker->name , "model" => $vehicle->model->name , "version" => $vehicle->modelVersion , "color" => __($vehicle->bodyColor->nameTranslate), "ref" => $vehicle->crossReference ]) }}</textarea>
                                 </div>
                             </div>
                         </div>

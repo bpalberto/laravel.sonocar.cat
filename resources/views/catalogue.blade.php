@@ -106,9 +106,9 @@ $valor = "Valor";
                             <tbody>
                                 <tr>
                                     <th class='text-right' scope='row'>{{ __('catalogue.fuelLabel') }}</th>
-                                    <td class='text-left'>{{ $vehicle->fuelCategory->name }}</td>
+                                    <td class='text-left'>{{ __($vehicle->fuelCategory->nameTranslate) }}</td>
                                     <th class='text-right' scope='row'>{{ __('catalogue.bodyColorLabel') }}</th>
-                                    <td class='text-left'>{{ $vehicle->bodyColor->name }}</td>
+                                    <td class='text-left'>{{ __($vehicle->bodyColor->nameTranslate) }}</td>
                                 </tr>
                                 <tr>
                                     @if ($vehicle->electricConsumptionCombined !== null)
@@ -151,27 +151,8 @@ $valor = "Valor";
                                 </tr>
                             </tbody>
                         </table>
-                        <p>{{ __('catalogue.availabilityLabel') }}: 
-
-                            @switch($vehicle->availability->id)
-                            @case(1)
-                            {{ __('catalogue.availability1Label') }}
-                            @break
-
-                            @case(2)
-                            {{ __('catalogue.availability2Label') }}
-                            @break
-
-                            @case(3)
-                            {{ __('catalogue.availability3Label') }}
-                            @break
-
-                            @default
-                            {{ __('catalogue.availability0Label') }}
-                            @endswitch
-
-                            {{ $vehicle->deliveryDays }} 
-
+                        <p>{{ __($vehicle->availability->nameTranslate) }}: {{ $vehicle->deliveryDays }} 
+                            
                             @if ($vehicle->deliveryDate !== null)
                             {{ date_format(date_create($vehicle->deliveryDate), 'd/m/Y') }}
                             @endif

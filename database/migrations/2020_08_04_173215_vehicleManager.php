@@ -18,46 +18,55 @@ class vehicleManager extends Migration
         Schema::create('efficiency_classes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('nameTranslate')->nullable();
         });
         
         Schema::create('availability_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('nameTranslate')->nullable();
         });
 
         Schema::create('body_colors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('nameTranslate')->nullable();
         });
 
         Schema::create('fuel_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('nameTranslate')->nullable();
         });
 
         Schema::create('fuel_categories', function (Blueprint $table) {
             $table->char('id', 1)->primary();
             $table->string('name');
+            $table->string('nameTranslate')->nullable();
         });
 
         Schema::create('emissions_stickers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('nameTranslate')->nullable();
         });
 
         Schema::create('pollution_class', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('nameTranslate')->nullable();
         });
 
         Schema::create('equipment', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('nameTranslate')->nullable();
         });
 
         Schema::create('interior_colors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('nameTranslate')->nullable();
         });
 
         Schema::create('makes', function (Blueprint $table) {
@@ -68,26 +77,31 @@ class vehicleManager extends Migration
         Schema::create('vehicle_bodies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('nameTranslate')->nullable();
         });
         
         Schema::create('vehicle_offer_types', function (Blueprint $table) {
             $table->char('id', 1)->primary();
             $table->string('name');
+            $table->string('nameTranslate')->nullable();
         });
         
         Schema::create('upholsteries', function (Blueprint $table) {
             $table->char('id', 2)->primary();
             $table->string('name');
+            $table->string('nameTranslate')->nullable();
         });
         
         Schema::create('transmissions', function (Blueprint $table) {
             $table->char('id', 1)->primary();
             $table->string('name');
+            $table->string('nameTranslate')->nullable();
         });
         
         Schema::create('drive_types', function (Blueprint $table) {
             $table->char('id', 1)->primary();
             $table->string('name');
+            $table->string('nameTranslate')->nullable();
         });
 
         Schema::create('images', function (Blueprint $table) {
