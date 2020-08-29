@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use App\make;
 use App\vehicle;
 
@@ -20,6 +19,7 @@ class CatalogueAuthController extends Controller {
      * @return void
      */
     public function __construct() {
+        parent::__construct();
         $this->middleware('auth');
     }
 

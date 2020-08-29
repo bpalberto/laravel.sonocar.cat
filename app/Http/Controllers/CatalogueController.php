@@ -25,6 +25,7 @@ class CatalogueController extends Controller {
      * @return void
      */
     public function __construct() {
+        parent::__construct();
         
     }
 

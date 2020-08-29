@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 
 /*
   |--------------------------------------------------------------------------
@@ -33,6 +32,9 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('contact');
 });
+
+/* Qr Codes */
+Route::get('/getVehicleQRCodeBySKU', 'QrCodeController@getVehicleQRCodeBySKU')->name('/subscribe.Post');
 
 /* Subscription Manager */
 Route::post('/subscribe', 'SubscriptionController@subscribe')->name('/subscribe.Post');

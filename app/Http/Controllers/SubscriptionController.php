@@ -7,6 +7,15 @@ use App\subscriber;
 use App\Mail\subscribedOk;
 
 class SubscriptionController extends Controller {
+    
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+        parent::__construct();
+    }
 
     public function subscribe(Request $request) {
 

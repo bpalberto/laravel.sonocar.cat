@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="col-6 col-md-4 col-lg-3 col-xxl-2">
-                    <img class="img-cover rounded-20 border-1 border-orange" src="{{ $baseURL }}/getVehicleURLQrCode.php?sku={{ $vehicle->crossReference }}&print=0">
+                    <img class="img-cover rounded-20 border-1 border-orange" src="{{ $baseURL }}/getVehicleQRCodeBySKU?sku={{ $vehicle->crossReference }}&print=0">
                 </div>
 
             </div>
@@ -270,7 +270,7 @@
                                                 @foreach ($vehicle->equipment as $equipment)
 
                                                 <li>
-                                                    {{ __($equipment->nameTranslate) }} 
+                                                    {{ __($equipment->nameTranslate) }}
                                                     @if ($equipment->id == 15)
                                                     ({{ $vehicle->alloyWheelSize }} {{ __('catalogue.inchesLabel') }})
                                                     @endif
@@ -311,8 +311,7 @@
                             <div class="col-lg-12 offset-top-20">
                                 <div class="form-group">
                                     <label class="form-label-outside" for="contact-us-message">{{ __('translate.formMsgLabel') }}</label>
-                                    <textarea style="height:auto" rows="6" class="form-control" id="contact-us-message" name="message" 
-                                              data-constraints="@Required">{{ __('catalogue.orderMessage', [ "maker" =>$vehicle->maker->name , "model" => $vehicle->model->name , "version" => $vehicle->modelVersion , "color" => __($vehicle->bodyColor->nameTranslate), "ref" => $vehicle->crossReference ]) }}</textarea>
+                                    <textarea style="height:auto" rows="6" class="form-control" id="contact-us-message" name="message" data-constraints="@Required">{{ __('catalogue.orderMessage', [ "maker" =>$vehicle->maker->name , "model" => $vehicle->model->name , "version" => $vehicle->modelVersion , "color" => __($vehicle->bodyColor->nameTranslate), "ref" => $vehicle->crossReference ]) }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -333,4 +332,3 @@
     </div>
 </section>
 @endsection
-
