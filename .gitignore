@@ -1,6 +1,3 @@
-/public/bat/phpmailerconfig.php
-
-
 
 # ignore log files and databases
 *.log
@@ -87,6 +84,8 @@ Homestead.json
 
 .env
 /public/.htaccess
+public/.htaccess
+*/.htaccess
 /storage
 storage/*.key
 /nbproject/
