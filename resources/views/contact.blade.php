@@ -56,7 +56,7 @@
                 <h3>{{ __('contact.contactSendUsTitle') }}</h3>
                 <hr class="divider bg-red hr-md-right-0">
                 <!-- RD Mailform-->
-                <form class="rd-mailform text-left offset-top-50" data-form-output="form-output-global" data-form-type="contact" method="post" action="{{ $rootURL }}/bat/rd-mailform.php">
+                <form class="rd-mailform text-left offset-top-50" data-form-output="form-output-global" data-form-type="contact" method="post" action="{{ $rootURL }}/send-mail">
                     <div class="row novi-excluded">
                         <div class="col-xl-6">
                             <div class="form-group">

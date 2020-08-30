@@ -34,7 +34,11 @@ Route::get('/contact', function () {
 });
 
 /* Qr Codes */
-Route::get('/getVehicleQRCodeBySKU', 'QrCodeController@getVehicleQRCodeBySKU')->name('/subscribe.Post');
+Route::get('/getVehicleQRCodeBySKU', 'QrCodeController@getVehicleQRCodeBySKU')->name('/getVehicleQRCodeBySKU');
+
+/* RD Mail Form */
+Route::get('/send-mail', 'RdMailFormController@RDMailForm')->name('/send-mail.get');
+Route::post('/send-mail', 'RdMailFormController@RDMailForm')->name('/send-mail.post');
 
 /* Subscription Manager */
 Route::post('/subscribe', 'SubscriptionController@subscribe')->name('/subscribe.Post');

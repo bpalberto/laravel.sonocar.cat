@@ -1,6 +1,6 @@
 <?php
 
-namespace Sonocar\Utils\QR;
+namespace Sonocar\Utils;
 
 /*
 * PHP QR Code encoder

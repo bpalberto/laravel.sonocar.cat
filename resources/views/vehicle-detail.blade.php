@@ -294,7 +294,7 @@
                     @if ( $vehicle->sold )
                     <h3 class="text-center text-danger">{{ __('catalogue.soldLabel') }}</h3>
                     @else
-                    <form class="rd-mailform text-left offset-top-50" data-form-output="form-output-global" data-form-type="order" method="post" action="{{ $rootURL }}/bat/rd-mailform.php">
+                    <form class="rd-mailform text-left offset-top-50" data-form-output="form-output-global" data-form-type="order" method="post" action="{{ $rootURL }}/send-mail">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">

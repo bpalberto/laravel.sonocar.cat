@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Sonocar\Utils\QR\QRcode;
+use Sonocar\Utils\QRcode;
 
 class QrCodeController extends Controller {
     
