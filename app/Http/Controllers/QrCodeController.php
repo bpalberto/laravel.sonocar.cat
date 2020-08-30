@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Sonocar\Utils\QRcode;
+use Sonocar\Utils\QRCodeTools\QRcode;
 
 class QrCodeController extends Controller {
     
@@ -47,7 +47,7 @@ class QrCodeController extends Controller {
         $dataToQR = $url;
         $outfile = false;
         $errorCorrectionLevel = 'H';
-        $matrixPointSize = 8;
+        $matrixPointSize = 10;
         $margin = 4;
         $saveandprint = false;
 
@@ -59,6 +59,7 @@ class QrCodeController extends Controller {
             $fgcolor = "#252525";
         }
 
+        
         $qrCodeResult = QRcode::png($dataToQR, $outfile, $errorCorrectionLevel, $matrixPointSize, $margin, $saveandprint, $bgcolor, $fgcolor);
         return response($qrCodeResult)->header('Content-type','image/png');
     }
