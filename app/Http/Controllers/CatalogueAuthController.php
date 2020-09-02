@@ -23,39 +23,6 @@ class CatalogueAuthController extends Controller {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the catalogue's hidden vehicles.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function hidden(Request $request) {
-        if ($request->input('itemspp') !== null) {
-            $itemsPp = $request->input('itemspp');
-        } else {
-            $itemsPp = 15;
-        }
-
-        if ($request->input('hidden') !== null && $request->input('hidden') == '0') {
-
-            $data = $request->except('hidden');
-            return redirect()->route('/catalogue', $data);
-        }
-
-
-        $allMakers = make::orderBy('name')->get(); // For search list in view
-
-        if ($request->input('maker') !== null && $request->input('maker') !== 'all') {
-            $filterMaker = $request->input('maker');
-            $vehicles = vehicle::where('make_id', $filterMaker)->paginate($itemsPp);
-
-            return view('catalogue', ['vehicles' => $vehicles, 'makers' => $allMakers]);
-        }
-
-        $vehicles = vehicle::where('visible', false)->paginate($itemsPp);
-
-        return view('catalogue', ['vehicles' => $vehicles, 'makers' => $allMakers]);
-    }
-
     protected function getExtraData() {
 
         $avalabilities = \Illuminate\Support\Facades\DB::table('availability_types')->orderBy('name', 'asc')->get();
@@ -95,7 +62,17 @@ class CatalogueAuthController extends Controller {
         );
 
         return $data;
-
+    }
+    
+    protected function getNewSKU() {
+        // Creación de la referencia cruzada única según la fecha de creación
+        $cTSP1 = "SNCR"; // Refiere eliminar las vocales a SONOCAR
+        $cTSP2 = date("y", time()); // Año (2D)
+        $cTSP3 = date("zHis", time()); // Día del año (3D) + Hora (2D) + Minutos (2D) + Segundos (2D)
+        $cTSP4 = mt_rand(0, 9); // Número aleatorio de 0 a 9
+        $sku = $cTSP1 . $cTSP2 . $cTSP3 . $cTSP4;
+        
+        return $sku;
     }
 
     protected function getValidateRules() {
@@ -123,7 +100,7 @@ class CatalogueAuthController extends Controller {
             "efficiencyClass" => "required",
             "co2" => "required",
             "drive_type_id" => "required",
-            "transmission" => "required",
+            "transmission_id" => "required",
             "gears" => "required",
             "cylinders" => "nullable",
             "cylinderCapacity" => "nullable",
@@ -151,7 +128,60 @@ class CatalogueAuthController extends Controller {
         );
 
         return $dataRules;
+    }
+    
+    protected function getValidateRulesForModification() {
+        // Campos que no van a ser modificados
+        $unsetFields = array(
+            'availability_type_id',
+            'make_id',
+            'model_id',
+            'vehicle_body_id',
+            'vehicleType',
+            'fuel_category_id',
+            'emission_sticker_id',
+            'doors',
+            'seats',
+            'body_color_id',
+            'interior_color_id',
+            'upholstery',
+            'drive_type_id',
+            'efficiencyClass',
+            'vehicle_offer_type_id',
+            'transmission_id',
+        );
+        $dataRules = $this->getValidateRules();
+        
+        foreach ($unsetFields as $field){
+            unset($dataRules["$field"]);
+        }
+        
+        return $dataRules;
+    }
 
+    protected function getValidatedData(Request $request) {
+        $dataRules = $this->getValidateRules();
+
+        $validatedData = $request->validate($dataRules);
+        
+        if ( $validatedData['deliveryDate'] !== null ){
+            $deliveryDate = date_create_from_format("d/m/Y", $validatedData['deliveryDate']);
+            $validatedData['deliveryDate'] = null;
+            $validatedData['deliveryDate'] = $deliveryDate;
+        }
+        
+        // campos que no estan en el formulario
+        $validatedData['particleFilter'] = false;    // (REQUIRED)
+        $validatedData['pollution_class_id'] = null;     // (nullable)
+        $validatedData['fuel_type_id'] = null;     // (nullable)
+        $validatedData['autonomy'] = null;     // (nullable)
+        $validatedData['offerReference'] = null;     // (nullable)
+        $validatedData['warrantyMonths'] = 12;       // (REQUIRED)
+
+        // Campos de compatibilidad externa
+        $validatedData['vehicleIdentifier'] = null;     // (nullable) (ID de Autoscout24)
+        
+        return $validatedData;
     }
 
     public function submitVehicleGet() {
@@ -163,56 +193,11 @@ class CatalogueAuthController extends Controller {
 
     public function submitVehiclePost(Request $request) {
 
-        $dataRules = $this->getValidateRules();
-
-        $validatedData = $request->validate($dataRules);
+        $validatedData = $this->getValidatedData($request);
         
-        if ( isset($validatedData['deliveryDate']) ){
-            $deliveryDate = date_create_from_format("d/m/Y", $validatedData['deliveryDate']);
-            $validatedData['deliveryDate'] = null;
-            $validatedData['deliveryDate'] = $deliveryDate;
-        }
-        
-
-        // Creación de la referencia cruzada única según la fecha de creación
-        $cTSP1 = "SNCR"; // Refiere eliminar las vocales a SONOCAR
-        $cTSP2 = date("y", time()); // Año (2D)
-        $cTSP3 = date("zHis", time()); // Día del año (3D) + Hora (2D) + Minutos (2D) + Segundos (2D)
-        $cTSP4 = mt_rand(0, 9); // Número aleatorio de 0 a 9
-        $sku = $cTSP1 . $cTSP2 . $cTSP3 . $cTSP4;
-
-
-        // campos a cambiar de nombre en el formulario
-        //$validatedData['make_id']                   = $validatedData['maker'];
-        //$validatedData['model_id']                  = $validatedData['model'];
-        //$validatedData['body_color_id'] = $validatedData['bodyColor'];
-        //$validatedData['drive_type_id'] = $validatedData['driveType'];
-        //$validatedData['emission_sticker_id'] = $validatedData['emissionsSticker'];
-        //$validatedData['fuel_category_id'] = $validatedData['fuelCategory'];
-        //$validatedData['interior_color_id'] = $validatedData['interiorColor'];
-        //$validatedData['licencePlateNumber'] = $validatedData['licensePlate'];
-        //$validatedData['transmission_id'] = $validatedData['transmission'];
-        //$validatedData['vehicle_body_id'] = $validatedData['vehicleBody'];
-        //$validatedData['vehicle_offer_type_id'] = $validatedData['offerType'];
-        //$validatedData['vin'] = $validatedData['vinNumber'];
-        //$validatedData['sold'] = $validatedData['isSold'];
-        //$validatedData['visible'] = $validatedData['isVisible'];
-
-
-        // campos que no estan en el formulario
-        $validatedData['particleFilter'] = false;    // (REQUIRED)
-        $validatedData['pollution_class_id'] = null;     // (nullable)
-        $validatedData['fuel_type_id'] = null;     // (nullable)
-        $validatedData['autonomy'] = null;     // (nullable)
-        $validatedData['offerReference'] = null;     // (nullable)
-        $validatedData['warrantyMonths'] = 12;       // (REQUIRED)
-
         // Campos automáticamente generados
+        $sku = $this->getNewSKU();
         $validatedData['crossReference'] = $sku;     // (nullable)
-
-        // Campos de compatibilidad externa
-        $validatedData['vehicleIdentifier'] = null;     // (nullable) (ID de Autoscout24)
-
         // Crear objeto desde los datos válidos
         $vehicle = new \App\vehicle($validatedData);
 
@@ -228,7 +213,13 @@ class CatalogueAuthController extends Controller {
             return view('/submit-vehicle', ['modify' => false, 'vehicle' => null, 'result' => false]);
         }
     }
-
+    
+    /**
+     * Get vehicle data to modify and show form with modify flag. 
+     * 
+     * @param type $id (vehicle id to modify data)
+     * @return view
+     */
     public function modifyVehicleID($id) {
         $vehicle = vehicle::find($id);
 
@@ -239,29 +230,65 @@ class CatalogueAuthController extends Controller {
         return view('submit-vehicle', $data);
     }
 
+    /**
+     * Get modified data from a form, and update it to the model
+     * 
+     * @param Request $request
+     * @param type $id (vehicle id to modify data)
+     * @return view
+     */
     public function modifyVehicleIDPost(Request $request, $id) {
         $vehicle = vehicle::where('id', $id)->get()[0];
 
-        $vehicle->description = $request['description'];
-        $vehicle->price = $request['price'];
+        /*** Code to modify vehicle data ***/
+        $validatedData = $request->validate($this->getValidateRulesForModification());
+        $vehicle->update($validatedData);
+        /*** Code to modify vehicle data ***/
 
-        if ($request['sold'] == "true") {
-            $vehicle->sold = true;
-        } else {
-            $vehicle->sold = false;
-        }
-
-        if ($request['visible'] == "true") {
-            $vehicle->visible = true;
-        } else {
-            $vehicle->visible = false;
-        }
-
+        $data = $this->getExtraData();
+        $data['modify'] = true;
+        $data['vehicle'] = $vehicle;
+        
         if ($vehicle->save()) {
-            return view('submit-vehicle', ['modify' => true, 'vehicle' => $vehicle, 'result' => true]);
+            $data['result'] = true;
+            return view('submit-vehicle', $data);
         } else {
-            return view('submit-vehicle', ['modify' => true, 'vehicle' => $vehicle, 'result' => false]);
+            $data['result'] = false;
+            return view('submit-vehicle', $data);
         }
+    }
+    
+    /**
+     * Show the catalogue's hidden vehicles.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function hidden(Request $request) {
+        if ($request->input('itemspp') !== null) {
+            $itemsPp = $request->input('itemspp');
+        } else {
+            $itemsPp = 15;
+        }
+
+        if ($request->input('hidden') !== null && $request->input('hidden') == '0') {
+
+            $data = $request->except('hidden');
+            return redirect()->route('/catalogue', $data);
+        }
+
+
+        $allMakers = make::orderBy('name')->get(); // For search list in view
+
+        if ($request->input('maker') !== null && $request->input('maker') !== 'all') {
+            $filterMaker = $request->input('maker');
+            $vehicles = vehicle::where('make_id', $filterMaker)->paginate($itemsPp);
+
+            return view('catalogue', ['vehicles' => $vehicles, 'makers' => $allMakers]);
+        }
+
+        $vehicles = vehicle::where('visible', false)->paginate($itemsPp);
+
+        return view('catalogue', ['vehicles' => $vehicles, 'makers' => $allMakers]);
     }
 
     public function delete(Request $request, $id) {

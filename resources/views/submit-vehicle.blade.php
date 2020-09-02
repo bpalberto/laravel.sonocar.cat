@@ -40,7 +40,7 @@
                             <fieldset class="col-md-6 order-2 order-md-0">
                                 <!-- Maker -->
                                 <div class="mb-4 text-left">
-                                    <div class="form-group @error('maker') is-invalid @enderror">
+                                    <div class="form-group @error('make_id') is-invalid @enderror">
                                         <label class="required" for="selectMaker">{{ __('catalogue.makerLabel') }}</label>
                                         @if ($vehicle !== null)
                                         <input class="form-control disabled" type="text" id="makerName" name="makerName" value="{{ $vehicle->maker->name }}" disabled>
@@ -60,14 +60,14 @@
                                         </select>
                                         @endif
                                     </div>
-                                    @error('maker')
+                                    @error('make_id')
                                     <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
                                     @enderror
                                 </div>
 
                                 <!-- Model -->
                                 <div class="mb-4 text-left">
-                                    <div class="form-group @error('model') is-invalid @enderror">
+                                    <div class="form-group @error('model_id') is-invalid @enderror">
                                         <label class="required" for="selectModel">{{ __('catalogue.modelLabel') }}</label>
                                         <div id="oldModel" class="invisible" value="{{ old('model_id') }}"></div>
                                         @if ($vehicle !== null)
@@ -81,7 +81,7 @@
                                         </select>
                                         @endif
                                     </div>
-                                    @error('model')
+                                    @error('model_id')
                                     <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
                                     @enderror
                                 </div>
@@ -91,12 +91,12 @@
                                     <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="modelVersion">{{ __('catalogue.modelVersionLabel') }}</label>
                                     <input class="form-control input-sm" type="text" id="modelVersion" name="modelVersion"
                                            placeholder="{{ __('catalogue.modelVersionPlaceholder') }}"
-                                           value="@if ($vehicle !== null){{ $vehicle->modelVersion }}@else{{ old('modelVersion') }}@endif">
+                                           value="@if ($vehicle !== null){{ old('modelVersion') ?? $vehicle->modelVersion }}@else{{ old('modelVersion') }}@endif">
                                 </div>
 
                                 <!-- VehicleBody -->
                                 <div class="mb-4 text-left">
-                                    <div class="form-group @error('vehicleBody') is-invalid @enderror">
+                                    <div class="form-group @error('vehicle_body_id') is-invalid @enderror">
                                         <label class="required" for="selectVehicleBody">{{ __('catalogue.bodyTypeLabel') }}</label>
                                         @if ($vehicle !== null)
                                         <input class="form-control disabled" type="text" id="selectVehicleBody" name="vehicle_body_id" value="{{ __($vehicle->vehicleBody->nameTranslate) }}" disabled>
@@ -116,7 +116,7 @@
                                         </select>
                                         @endif
                                     </div>
-                                    @error('vehicleBody')
+                                    @error('vehicle_body_id')
                                     <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
                                     @enderror
                                 </div>
@@ -158,7 +158,7 @@
 
                                 <!-- OfferType -->
                                 <div class="mb-4 text-left">
-                                    <div class="form-group @error('offerType') is-invalid @enderror">
+                                    <div class="form-group @error('vehicle_offer_type_id') is-invalid @enderror">
                                         <label class="required" for="selectOfferType">{{ __('catalogue.offerTypeLabel') }}</label>
                                         @if ($vehicle !== null)
                                         <input class="form-control disabled" type="text" id="selectOfferType" name="vehicle_offer_type_id" value="{{ __($vehicle->vehicleOfferType->nameTranslate) }}" disabled>
@@ -178,40 +178,46 @@
                                         </select>
                                         @endif
                                     </div>
-                                    @error('offerType')
+                                    @error('vehicle_offer_type_id')
                                     <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
                                     @enderror
                                 </div>
 
                                 <!-- Power -->
                                 <div class="mb-4 text-left">
-                                    <div class="form-group @error('powerKw') is-invalid @enderror">
-                                        <div class="row">
-                                            <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group @error('powerKw') is-invalid @enderror">
                                                 <label class="required" for="powerKw">{{ __('catalogue.powerKwLabel') }}</label>
                                                 @if ($vehicle !== null)
                                                 <input class="form-control input-sm" type="number" id="powerKw" name="powerKw"
-                                                       value="{{ $vehicle->powerKw }}" min="1" max="10000" step="1" onchange="kwToCv()">
+                                                       value="{{ old('powerKw') ?? $vehicle->powerKw }}" min="1" max="10000" step="1" onchange="kwToCv()">
                                                 @else
                                                 <input type="number" min="1" max="10000" step="1" value="{{ old('powerKw') }}"
                                                        class="form-control input-sm " id="powerKw" name="powerKw" requerido="no" onchange="kwToCv()">
                                                 @endif
                                             </div>
-                                            <div class="col-6">
+                                            @error('powerKw')
+                                            <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group @error('powerCv') is-invalid @enderror">
                                                 <label class="required" for="powerCv">{{ __('catalogue.powerCvLabel') }}</label>
                                                 @if ($vehicle !== null)
-                                                <input class="form-control input-sm" type="number" id="powerKw" name="powerKw"
-                                                       value="{{ intval($vehicle->powerKw * 1.34102) }}" min="1" max="10000" step="1" onchange="cvToKw()">
+                                                <input class="form-control input-sm" type="number" id="powerCv" name="powerCv"
+                                                       value="{{ old('powerCV') ?? intval($vehicle->powerKw * 1.34102) }}" min="1" max="10000" step="1" onchange="cvToKw()">
                                                 @else
                                                 <input type="number" min="1" max="10000" step="1" value="{{ old('powerCv') }}"
                                                        class="form-control input-sm " id="powerCv" name="powerCv" requerido="no" onchange="cvToKw()">
                                                 @endIf
                                             </div>
+                                            @error('powerCv')
+                                            <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
-                                    @error('powerKw')
-                                    <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
-                                    @enderror
+
                                 </div>
                             </fieldset>
                         </div>
@@ -269,7 +275,7 @@
                                         <label class="required" for="mileage">{{ __('catalogue.mileageLabel') }}</label>
                                         <input class="form-control input-sm " id="mileage" name="mileage" requerido="no"
                                                type="number" min="1" max="9999999" step="1"
-                                               value="@if ($vehicle !== null){{ $vehicle->mileage }}@else{{ old('mileage') }}@endif">
+                                               value="@if ($vehicle !== null){{ old('mileage') ?? $vehicle->mileage }}@else{{ old('mileage') }}@endif">
                                     </div>
                                     @error('mileage')
                                     <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
@@ -287,7 +293,7 @@
 
                                 <!-- FuelCategory -->
                                 <div class="mb-4 text-left">
-                                    <div class="form-group @error('fuelCategory') is-invalid @enderror">
+                                    <div class="form-group @error('fuel_category_id') is-invalid @enderror">
                                         <label class="required" for="selectFuelCategory">{{ __('catalogue.fuelLabel') }}</label>
                                         @if ($vehicle !== null)
                                         <input class="form-control disabled" type="text" id="selectFuelCategory" name="fuel_category_id" value="{{ __($vehicle->fuelCategory->nameTranslate) }}" disabled>
@@ -307,7 +313,7 @@
                                         </select>
                                         @endif
                                     </div>
-                                    @error('fuelCategory')
+                                    @error('fuel_category_id')
                                     <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
                                     @enderror
                                 </div>
@@ -318,7 +324,7 @@
                                         <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="electricConsumptionCombined">{{ __('catalogue.electricConsumptionLabel') }}</label>
                                         <div class="input-group">
                                             <input class="form-control input-sm" type="number" nim="0" max="99.9" step=".1" id="electricConsumptionCombined" name="electricConsumptionCombined"
-                                                   value="@if ($vehicle !== null){{ $vehicle->electricConsumptionCombined }}@else{{ old('electricConsumptionCombined') }}@endif">
+                                                   value="@if ($vehicle !== null){{ old('electricConsumptionCombined') ?? $vehicle->electricConsumptionCombined }}@else{{ old('electricConsumptionCombined') }}@endif">
                                             <div class="input-group-append">
                                                 <div class="input-group-text bg-orange text-darker ">{{ __('catalogue.electricConsumptionUnities') }}</div>
                                             </div>
@@ -334,7 +340,7 @@
                                                 <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="fuelConsumptionUrban">{{ __('catalogue.fuelConsumptionUrbanLabel') }}</label>
                                                 <div class="input-group">
                                                     <input class="form-control input-sm" type="number" nim="0" max="99.9" step=".1" id="fuelConsumptionUrban" name="fuelConsumptionUrban"
-                                                           value="@if ($vehicle !== null){{ $vehicle->fuelConsumptionUrban }}@else{{ old('fuelConsumptionUrban') }}@endif">
+                                                           value="@if ($vehicle !== null){{ old('fuelConsumptionUrban') ?? $vehicle->fuelConsumptionUrban }}@else{{ old('fuelConsumptionUrban') }}@endif">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text bg-orange text-darker ">{{ __('catalogue.fuelConsumptionUnities') }}</div>
                                                     </div>
@@ -350,7 +356,7 @@
                                                 <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="fuelConsumptionHighway">{{ __('catalogue.fuelConsumptionHighwayLabel') }}</label>
                                                 <div class="input-group">
                                                     <input class="form-control input-sm" type="number" nim="0" max="99.9" step=".1" id="fuelConsumptionHighway" name="fuelConsumptionHighway"
-                                                           value="@if ($vehicle !== null){{ $vehicle->fuelConsumptionHighway }}@else{{ old('fuelConsumptionHighway') }}@endif">
+                                                           value="@if ($vehicle !== null){{ old('fuelConsumptionHighway') ?? $vehicle->fuelConsumptionHighway }}@else{{ old('fuelConsumptionHighway') }}@endif">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text bg-orange text-darker ">{{ __('catalogue.fuelConsumptionUnities') }}</div>
                                                     </div>
@@ -366,7 +372,7 @@
                                                 <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="fuelConsumptionCombined">{{ __('catalogue.fuelConsumptionCombinedLabel') }}</label>
                                                 <div class="input-group">
                                                     <input class="form-control input-sm" type="number" nim="0" max="99.9" step=".1" id="fuelConsumptionCombined" name="fuelConsumptionCombined"
-                                                           value="@if ($vehicle !== null){{ $vehicle->fuelConsumptionCombined }}@else{{ old('fuelConsumptionCombined') }}@endif">
+                                                           value="@if ($vehicle !== null){{ old('fuelConsumptionCombined') ?? $vehicle->fuelConsumptionCombined }}@else{{ old('fuelConsumptionCombined') }}@endif">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text bg-orange text-darker ">{{ __('catalogue.fuelConsumptionUnities') }}</div>
                                                     </div>
@@ -384,7 +390,7 @@
 
                                 <!-- Emissions Sticker -->
                                 <div class="mb-4 text-left">
-                                    <div class="form-group @error('emissionsSticker') is-invalid @enderror">
+                                    <div class="form-group @error('emission_sticker_id') is-invalid @enderror">
                                         <label class="required" for="selectEmissionsSticker">{{ __('catalogue.emissionsStickerLabel') }}</label>
                                         @if ($vehicle !== null)
                                         <input class="form-control disabled" type="text" id="emissionsSticker" name="emission_sticker_id" value="{{ __($vehicle->emissionsSticker->nameTranslate) }}" disabled>
@@ -404,7 +410,7 @@
                                         </select>
                                         @endif
                                     </div>
-                                    @error('emissionsSticker')
+                                    @error('emission_sticker_id')
                                     <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
                                     @enderror
                                 </div>
@@ -441,8 +447,8 @@
                                     <div class="form-group @error('co2') is-invalid @enderror">
                                         <label class="required" for="co2">{{ __('catalogue.emissionsLabel') }}</label>
                                         <div class="input-group">
-                                            <input class="form-control input-sm" type="number" nim="0" max="9999" step="1" id="co2" name="co2"
-                                                   value="@if ($vehicle !== null){{ $vehicle->co2 }}@else{{ old('co2') }}@endif">
+                                            <input class="form-control input-sm" type="number" min="0" max="9999" step="1" id="co2" name="co2"
+                                                   value="@if ($vehicle !== null){{ old('co2') ?? $vehicle->co2 }}@else{{ old('co2') }}@endif">
                                             <div class="input-group-append">
                                                 <div class="input-group-text bg-orange text-darker ">{{ __('catalogue.emissionsUnities') }}</div>
                                             </div>
@@ -464,7 +470,7 @@
 
                                 <!-- Drive Type (Traction) -->
                                 <div class=" mb-4 text-left">
-                                    <div class="form-group @error('driveType') is-invalid @enderror">
+                                    <div class="form-group @error('drive_type_id') is-invalid @enderror">
                                         <label class="required" for="selectDriveType">{{ __('catalogue.driveTypeLabel') }}</label>
                                         @if ($vehicle !== null)
                                         <input class="form-control disabled" type="text" id="selectDriveType" name="drive_type_id"
@@ -485,14 +491,14 @@
                                         </select>
                                         @endif
                                     </div>
-                                    @error('driveType')
+                                    @error('drive_type_id')
                                     <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
                                     @enderror
                                 </div>
 
                                 <!-- Transmission -->
                                 <div class="mb-4 text-left">
-                                    <div class="form-group @error('transmission') is-invalid @enderror">
+                                    <div class="form-group @error('transmission_id') is-invalid @enderror">
                                         <label class="required" for="selectTransmission">{{ __('catalogue.transmissionLabel') }}</label>
                                         @if ($vehicle !== null)
                                         <input class="form-control disabled" type="text" id="selectTransmission" name="transmission_id" requerido="no"
@@ -513,7 +519,7 @@
                                         </select>
                                         @endif
                                     </div>
-                                    @error('transmission')
+                                    @error('transmission_id')
                                     <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
                                     @enderror
                                 </div>
@@ -523,7 +529,7 @@
                                     <div class="form-group @error('gears') is-invalid @enderror">
                                         <label class="required" for="gears">{{ __('catalogue.gearsLabel') }}</label>
                                         <input class="form-control input-sm" type="number" nim="0" max="99" step="1" id="gears" name="gears" requerido="no"
-                                               value="@if ($vehicle !== null){{ $vehicle->gears }}@else{{ old('gears') }}@endif">
+                                               value="@if ($vehicle !== null){{ old('gears') ?? $vehicle->gears }}@else{{ old('gears') }}@endif">
                                     </div>
                                     @error('gears')
                                     <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
@@ -556,7 +562,7 @@
                                                 <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="cylinderCapacity">{{ __('catalogue.cylinderCapacityLabel') }}</label>
                                                 <div class="input-group">
                                                     <input class="form-control input-sm" type="number" nim="0" max="9999" step="1" id="cylinderCapacity" name="cylinderCapacity"
-                                                           value="@if ($vehicle !== null){{ $vehicle->cylinderCapacity }}@else{{ old('cylinderCapacity') }}@endif">
+                                                           value="@if ($vehicle !== null){{ old('cylinderCapacity') ?? $vehicle->cylinderCapacity }}@else{{ old('cylinderCapacity') }}@endif">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text bg-orange text-darker ">{{ __('catalogue.cylinderCapacityUnitsLabel') }}</div>
                                                     </div>
@@ -571,7 +577,7 @@
                                     <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="emptyWeight">{{ __('catalogue.emptyWeightLabel') }}</label>
                                     <div class="input-group">
                                         <input class="form-control input-sm" type="number" nim="0" max="9999" step="1" id="emptyWeight" name="emptyWeight"
-                                               value="@if ($vehicle !== null){{ $vehicle->emptyWeight }}@else{{ old('emptyWeight') }}@endif">
+                                               value="@if ($vehicle !== null){{ old('emptyWeight') ?? $vehicle->emptyWeight }}@else{{ old('emptyWeight') }}@endif">
                                         <div class="input-group-append">
                                             <div class="input-group-text bg-orange text-darker">{{ __('catalogue.emptyWeightUnitsLabel') }}</div>
                                         </div>
@@ -593,7 +599,7 @@
                                             <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="vinNumber">{{ __('catalogue.vinNumberLabel') }}</label>
                                             <input class="form-control input-sm" type="text" id="vinNumber" name="vin" maxlength="17"
                                                    onchange="this.value = this.value.toUpperCase()"
-                                                   value="@if ($vehicle !== null){{ $vehicle->vin }}@else{{ old('vinNumber') }}@endif">
+                                                   value="@if ($vehicle !== null){{ old('vinNumber') ?? $vehicle->vin }}@else{{ old('vinNumber') }}@endif">
                                         </div>
                                     </div>
                                 </div>
@@ -605,7 +611,7 @@
                                             <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="licensePlate">{{ __('catalogue.licensePlateLabel') }}</label>
                                             <input class="form-control input-sm" type="text" id="licensePlate" name="licencePlateNumber" maxlength="17"
                                                    onchange="formatLicensePlate()"
-                                                   value="@if ($vehicle !== null){{ $vehicle->licencePlateNumber }}@else{{ old('licensePlate') }}@endif">
+                                                   value="@if ($vehicle !== null){{ old('licensePlate') ?? $vehicle->licencePlateNumber }}@else{{ old('licensePlate') }}@endif">
                                         </div>
                                     </div>
                                 </div>
@@ -719,7 +725,7 @@
 
                                     <!-- Interior Color -->
                                     <div class="col-6 mb-4 text-left">
-                                        <div class="form-group @error('interiorColor') is-invalid @enderror">
+                                        <div class="form-group @error('interior_color_id') is-invalid @enderror">
                                             <label class="required" for="selectInteriorColor">{{ __('catalogue.interiorColorLabel') }}</label>
                                             @if ($vehicle !== null)
                                             <input class="form-control disabled" type="text" id="selectInteriorColor" name="interior_color_id" requerido="no"
@@ -748,7 +754,7 @@
                                             </select>
                                             @endif
                                         </div>
-                                        @error('interiorColor')
+                                        @error('interior_color_id')
                                         <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
                                         @enderror
                                     </div>
@@ -762,7 +768,7 @@
 
                                 <!-- Exterior Color -->
                                 <div class="mb-4 text-left">
-                                    <div class="form-group @error('bodyColor') is-invalid @enderror">
+                                    <div class="form-group @error('body_color_id') is-invalid @enderror">
                                         <label class="required" for="selectBodyColor">{{ __('catalogue.bodyColorLabel') }}</label>
                                         @if ($vehicle !== null)
                                         <input class="form-control disabled" type="text" id="selectBodyColor" name="body_color_id" requerido="no"
@@ -799,7 +805,7 @@
                                             </div>
                                         </label>
                                     </div>
-                                    @error('interiorColor')
+                                    @error('body_color_id')
                                     <div class="invalid-feedback p-2 rounded alert-danger"># {{ $message }}</div>
                                     @enderror
                                 </div>
@@ -1029,7 +1035,7 @@
                             <div class="form-group col-12 text-left">
                                 <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="description">{{ __('catalogue.descriptionLabel') }}</label>
                                 <textarea class="form-control @error('description') is-invalid @enderror" id="description"
-                                          name="description">@if ($vehicle !== null){{ $vehicle->description }}@else{{ old('description') }}@endif</textarea>
+                                          name="description">@if ($vehicle !== null){{ old('description') ?? $vehicle->description }}@else{{ old('description') }}@endif</textarea>
                             </div>
                         </fieldset>
 
@@ -1070,8 +1076,8 @@
                                         <div class="form-group @error('nextInspection') is-invalid @enderror">
                                             <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="textDeliveryDate">{{ __('catalogue.deliveryDateLabel') }}</label>
                                             <input class="form-control input-sm mb-1 disabled" type="text" id="deliveryDateDisplay" name="deliveryDateDisplay"
-                                                   value="@if ($vehicle !== null){{ $vehicle->deliveryDate }}@else{{ old('deliveryDate') }}@endif" disabled>
-                                            <input type="hidden" id="deliveryDate" name="deliveryDate" value="@if ($vehicle !== null){{ $vehicle->deliveryDate }}@else{{ old('deliveryDate') }}@endif">
+                                                   value="@if ($vehicle !== null){{ old('deliveryDate') ?? $vehicle->deliveryDate }}@else{{ old('deliveryDate') }}@endif" disabled>
+                                            <input type="hidden" id="deliveryDate" name="deliveryDate" value="@if ($vehicle !== null){{ old('deliveryDate') ?? $vehicle->deliveryDate }}@else{{ old('deliveryDate') }}@endif">
                                             <div class="row">
                                                 <div class="col-4">
                                                     <select class="form-control selectpicker show-tick" id="selectDayDeliveryDate" name="selectDayDeliveryDate"
@@ -1121,7 +1127,7 @@
                                             <div class="input-group">
                                                 <input class="form-control input-sm" id="deliveryDays" name="deliveryDays" requerido="no"
                                                        type="number" min="1" max="52" step="1"
-                                                       value="@if ($vehicle !== null){{ $vehicle->deliveryDays }}@else{{ old('deliveryDays') }}@endif">
+                                                       value="@if ($vehicle !== null){{ old('deliveryDays') ?? $vehicle->deliveryDays }}@else{{ old('deliveryDays') }}@endif">
                                                 <div class="input-group-append">
                                                     <div class="input-group-text bg-orange text-darker ">{{ __('catalogue.availabilityWeeksLabel') }}</div>
                                                 </div>
@@ -1147,7 +1153,7 @@
                                         <div class="input-group">
                                             <input class="form-control input-sm" id="price" name="price" requerido="no"
                                                    type="number" min="0" max="9999999.99" step=".01"
-                                                   value="@if ($vehicle !== null){{ $vehicle->price }}@else{{ old('price') }}@endif">
+                                                   value="@if ($vehicle !== null){{ old('price') ?? $vehicle->price }}@else{{ old('price') }}@endif">
                                             <div class="input-group-append">
                                                 <div class="input-group-text bg-orange text-darker ">€</div>
                                             </div>
@@ -1318,16 +1324,16 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-success">
-                    <h5 class="modal-title" id="exampleModalLongTitle">{{ __('catalogue.successTitle') }}</h5>
+                    <h5 class="mt-0 modal-title" id="exampleModalLongTitle">{{ __('catalogue.successTitle') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h3>{{ __('catalogue.savedSuccessText') }}</h3>
+                    <h3 class="mt-0">{{ __('catalogue.savedSuccessText') }}</h3>
                 </div>
                 <div class="modal-footer">
-                    <a href="{{ $catalogueURL }}" class="btn btn-success">{{ __('translate.goBackButton') }}</a>
+                    <a href="#" class="btn btn-success" data-dismiss="modal" aria-label="Close">{{ __('translate.closeButtonTitle') }}</a>
                 </div>
             </div>
         </div>
@@ -1337,7 +1343,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title text-white" id="exampleModalLongTitle">{{ __('catalogue.errorTitle') }}</h5>
+                    <h5 class="mt-0 modal-title text-white" id="exampleModalLongTitle">{{ __('catalogue.errorTitle') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="false">&times;</span>
                     </button>
@@ -1346,7 +1352,7 @@
                     {{ __('catalogue.errorText') }}
                 </div>
                 <div class="modal-footer">
-                    <a href="{{ $catalogueURL }}" class="btn btn-success">{{ __('translate.goBackButton') }}</a>
+                    <a href="#" class="btn btn-success" data-dismiss="modal" aria-label="Close">{{ __('translate.closeButtonTitle') }}</a>
                 </div>
             </div>
         </div>

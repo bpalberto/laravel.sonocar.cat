@@ -83,7 +83,8 @@ return [
     "formBtnSend"           => "Envia",
     "formBtnReset"          => "Esborra",
     "unsubscribeLinkTitle"  => "Esborra la meva subscripció",
-    "goBackButton" => "Tornar enrere",
+    "closeButtonTitle"      => "Tanca",
+    "goBackButton"          => "Tornar enrere",
     
     /** Link Title **/
     "subscribeButtonName"   => "Subscriure",

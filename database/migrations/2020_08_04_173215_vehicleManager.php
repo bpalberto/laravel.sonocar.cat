@@ -1,4 +1,5 @@
-<?php
+
+?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -131,7 +132,7 @@ class vehicleManager extends Migration
             $table->text('description')->nullable();
             $table->unsignedTinyInteger('doors');
             $table->char('drive_type_id', 1);
-            $table->float('co2', 3, 1);
+            $table->float('co2', 5, 1);
             $table->unsignedBigInteger('efficiencyClass_id')->default(1);
             $table->unsignedBigInteger('emission_sticker_id');
             $table->boolean('particleFilter');
