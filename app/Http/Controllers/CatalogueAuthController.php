@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\make;
 use App\vehicle;
+use App\equipment;
 
 /**
  * Description of CatalogueController
@@ -63,7 +64,7 @@ class CatalogueAuthController extends Controller {
 
         return $data;
     }
-    
+
     protected function getNewSKU() {
         // Creación de la referencia cruzada única según la fecha de creación
         $cTSP1 = "SNCR"; // Refiere eliminar las vocales a SONOCAR
@@ -71,7 +72,7 @@ class CatalogueAuthController extends Controller {
         $cTSP3 = date("zHis", time()); // Día del año (3D) + Hora (2D) + Minutos (2D) + Segundos (2D)
         $cTSP4 = mt_rand(0, 9); // Número aleatorio de 0 a 9
         $sku = $cTSP1 . $cTSP2 . $cTSP3 . $cTSP4;
-        
+
         return $sku;
     }
 
@@ -129,7 +130,7 @@ class CatalogueAuthController extends Controller {
 
         return $dataRules;
     }
-    
+
     protected function getValidateRulesForModification() {
         // Campos que no van a ser modificados
         $unsetFields = array(
@@ -151,11 +152,11 @@ class CatalogueAuthController extends Controller {
             'transmission_id',
         );
         $dataRules = $this->getValidateRules();
-        
-        foreach ($unsetFields as $field){
+
+        foreach ($unsetFields as $field) {
             unset($dataRules["$field"]);
         }
-        
+
         return $dataRules;
     }
 
@@ -163,13 +164,13 @@ class CatalogueAuthController extends Controller {
         $dataRules = $this->getValidateRules();
 
         $validatedData = $request->validate($dataRules);
-        
-        if ( $validatedData['deliveryDate'] !== null ){
+
+        if ($validatedData['deliveryDate'] !== null) {
             $deliveryDate = date_create_from_format("d/m/Y", $validatedData['deliveryDate']);
             $validatedData['deliveryDate'] = null;
             $validatedData['deliveryDate'] = $deliveryDate;
         }
-        
+
         // campos que no estan en el formulario
         $validatedData['particleFilter'] = false;    // (REQUIRED)
         $validatedData['pollution_class_id'] = null;     // (nullable)
@@ -177,10 +178,9 @@ class CatalogueAuthController extends Controller {
         $validatedData['autonomy'] = null;     // (nullable)
         $validatedData['offerReference'] = null;     // (nullable)
         $validatedData['warrantyMonths'] = 12;       // (REQUIRED)
-
         // Campos de compatibilidad externa
         $validatedData['vehicleIdentifier'] = null;     // (nullable) (ID de Autoscout24)
-        
+
         return $validatedData;
     }
 
@@ -194,7 +194,7 @@ class CatalogueAuthController extends Controller {
     public function submitVehiclePost(Request $request) {
 
         $validatedData = $this->getValidatedData($request);
-        
+
         // Campos automáticamente generados
         $sku = $this->getNewSKU();
         $validatedData['crossReference'] = $sku;     // (nullable)
@@ -213,7 +213,7 @@ class CatalogueAuthController extends Controller {
             return view('/submit-vehicle', ['modify' => false, 'vehicle' => null, 'result' => false]);
         }
     }
-    
+
     /**
      * Get vehicle data to modify and show form with modify flag. 
      * 
@@ -238,17 +238,23 @@ class CatalogueAuthController extends Controller {
      * @return view
      */
     public function modifyVehicleIDPost(Request $request, $id) {
-        $vehicle = vehicle::where('id', $id)->get()[0];
-
-        /*** Code to modify vehicle data ***/
         $validatedData = $request->validate($this->getValidateRulesForModification());
+
+        $selectedEquipment = new \ArrayObject();
+        foreach ($request->get('equipment') as $equipmentID => $hasIt) {
+            if ($hasIt === "1") {
+                $selectedEquipment->append(intval($equipmentID));
+            }
+        }
+
+        $vehicle = vehicle::where('id', $id)->get()->first();
+        $vehicle->equipment()->sync($selectedEquipment->getArrayCopy());
         $vehicle->update($validatedData);
-        /*** Code to modify vehicle data ***/
 
         $data = $this->getExtraData();
         $data['modify'] = true;
         $data['vehicle'] = $vehicle;
-        
+
         if ($vehicle->save()) {
             $data['result'] = true;
             return view('submit-vehicle', $data);
@@ -257,7 +263,7 @@ class CatalogueAuthController extends Controller {
             return view('submit-vehicle', $data);
         }
     }
-    
+
     /**
      * Show the catalogue's hidden vehicles.
      *

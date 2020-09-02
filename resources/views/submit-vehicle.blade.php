@@ -447,7 +447,7 @@
                                     <div class="form-group @error('co2') is-invalid @enderror">
                                         <label class="required" for="co2">{{ __('catalogue.emissionsLabel') }}</label>
                                         <div class="input-group">
-                                            <input class="form-control input-sm" type="number" min="0" max="9999" step="1" id="co2" name="co2"
+                                            <input class="form-control input-sm" type="number" min="0" max="9999" step=".1" id="co2" name="co2"
                                                    value="@if ($vehicle !== null){{ old('co2') ?? $vehicle->co2 }}@else{{ old('co2') }}@endif">
                                             <div class="input-group-append">
                                                 <div class="input-group-text bg-orange text-darker ">{{ __('catalogue.emissionsUnities') }}</div>
@@ -1247,7 +1247,7 @@
                                                     </div>
                                                     <div class="col-1">
                                                         <div class="switch">
-                                                            <input type="checkbox" id="equipmentId{{ $item->id }}" name="equipment['{{ $item->id }}']"
+                                                            <input type="checkbox" id="equipmentId{{ $item->id }}" name="equipment[{{ $item->id }}]"
                                                                    checked="" onchange="toggles(this)"
                                                                    value="{{ old('equipment.$item->id') ?? $hasItem ?? ('0') }}">
                                                             <span class="slider round"></span>
