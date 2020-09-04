@@ -43,7 +43,7 @@
                                     <div class="form-group @error('make_id') is-invalid @enderror">
                                         <label class="required" for="selectMaker">{{ __('catalogue.makerLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="makerName" name="makerName" value="{{ $vehicle->maker->name }}" disabled>
+                                        <input class="form-control input-sm disabled" type="text" id="makerName" name="makerName" value="{{ $vehicle->maker->name }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick " id="selectMaker" name="make_id" requerido="no"
                                                 data-style="btn btn-sm btn-outline-light" data-size="5"
@@ -71,7 +71,7 @@
                                         <label class="required" for="selectModel">{{ __('catalogue.modelLabel') }}</label>
                                         <div id="oldModel" class="invisible" value="{{ old('model_id') }}"></div>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="modelName" name="modelName" value="{{ $vehicle->model->name }}" disabled>
+                                        <input class="form-control input-sm disabled" type="text" id="modelName" name="modelName" value="{{ $vehicle->model->name }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectModel" name="model_id" requerido="no"
                                                 data-style="btn btn-sm btn-outline-light" data-size="5"
@@ -99,7 +99,7 @@
                                     <div class="form-group @error('vehicle_body_id') is-invalid @enderror">
                                         <label class="required" for="selectVehicleBody">{{ __('catalogue.bodyTypeLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectVehicleBody" name="vehicle_body_id" value="{{ __($vehicle->vehicleBody->nameTranslate) }}" disabled>
+                                        <input class="form-control input-sm disabled" type="text" id="selectVehicleBody" name="vehicle_body_id" value="{{ __($vehicle->vehicleBody->nameTranslate) }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectVehicleBody" name="vehicle_body_id" requerido="no"
                                                 data-style="btn btn-sm btn-outline-light" data-size="5"
@@ -133,9 +133,9 @@
                                         <label class="required" for="selectVehicleType">{{ __('catalogue.typeLabel') }}</label>
                                         @if ( $vehicle !== null )
                                         @if( $vehicle->vehicleType === "C" )
-                                        <input class="form-control disabled" type="text" id="vehicleTypeName" name="vehicleType" value="{{ __('catalogue.carOption') }}" disabled>
+                                        <input class="form-control input-sm disabled" type="text" id="vehicleTypeName" name="vehicleType" value="{{ __('catalogue.carOption') }}" disabled>
                                         @elseif( $vehicle->vehicleType === "B" )
-                                        <input class="form-control disabled" type="text" id="vehicleTypeName" name="vehicleType" value="{{ __('catalogue.bikeOption') }}" disabled>
+                                        <input class="form-control input-sm disabled" type="text" id="vehicleTypeName" name="vehicleType" value="{{ __('catalogue.bikeOption') }}" disabled>
                                         @else
                                         <input class="form-control disa" type="text" id="vehicleTypeName" name="vehicleType" value="" disabled>
                                         @endif
@@ -161,7 +161,7 @@
                                     <div class="form-group @error('vehicle_offer_type_id') is-invalid @enderror">
                                         <label class="required" for="selectOfferType">{{ __('catalogue.offerTypeLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectOfferType" name="vehicle_offer_type_id" value="{{ __($vehicle->vehicleOfferType->nameTranslate) }}" disabled>
+                                        <input class="form-control input-sm disabled" type="text" id="selectOfferType" name="vehicle_offer_type_id" value="{{ __($vehicle->vehicleOfferType->nameTranslate) }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectOfferType" name="vehicle_offer_type_id" requerido="no"
                                                 data-style="btn btn-sm btn-outline-light" data-size="5"
@@ -296,7 +296,7 @@
                                     <div class="form-group @error('fuel_category_id') is-invalid @enderror">
                                         <label class="required" for="selectFuelCategory">{{ __('catalogue.fuelLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectFuelCategory" name="fuel_category_id" value="{{ __($vehicle->fuelCategory->nameTranslate) }}" disabled>
+                                        <input class="form-control input-sm disabled" type="text" id="selectFuelCategory" name="fuel_category_id" value="{{ __($vehicle->fuelCategory->nameTranslate) }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectFuelCategory" name="fuel_category_id" requerido="no"
                                                 data-style="btn btn-sm btn-outline-light" data-size="5"
@@ -393,7 +393,7 @@
                                     <div class="form-group @error('emission_sticker_id') is-invalid @enderror">
                                         <label class="required" for="selectEmissionsSticker">{{ __('catalogue.emissionsStickerLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="emissionsSticker" name="emission_sticker_id" value="{{ __($vehicle->emissionsSticker->nameTranslate) }}" disabled>
+                                        <input class="form-control input-sm disabled" type="text" id="emissionsSticker" name="emission_sticker_id" value="{{ __($vehicle->emissionsSticker->nameTranslate) }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectEmissionsSticker" name="emission_sticker_id" requerido="no"
                                                 data-style="btn btn-sm btn-outline-light" data-size="5"
@@ -420,7 +420,7 @@
                                     <div class="form-group @error('efficiencyClass') is-invalid @enderror">
                                         <label class="required" for="selectEfficiencyClass">{{ __('catalogue.efficiencyClassLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectEfficiencyClass" name="efficiencyClass" value="{{ __($vehicle->efficiencyClass->nameTranslate) }}" disabled>
+                                        <input class="form-control input-sm disabled" type="text" id="selectEfficiencyClass" name="efficiencyClass" value="{{ __($vehicle->efficiencyClass->nameTranslate) }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectEfficiencyClass" name="efficiencyClass" requerido="no"
                                                 data-style="btn btn-sm btn-outline-light" data-size="5"
@@ -473,7 +473,7 @@
                                     <div class="form-group @error('drive_type_id') is-invalid @enderror">
                                         <label class="required" for="selectDriveType">{{ __('catalogue.driveTypeLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectDriveType" name="drive_type_id"
+                                        <input class="form-control input-sm disabled" type="text" id="selectDriveType" name="drive_type_id"
                                                value="{{ __($vehicle->driveType->nameTranslate) }}" requerido="no" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectDriveType" name="drive_type_id" requerido="no"
@@ -501,7 +501,7 @@
                                     <div class="form-group @error('transmission_id') is-invalid @enderror">
                                         <label class="required" for="selectTransmission">{{ __('catalogue.transmissionLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectTransmission" name="transmission_id" requerido="no"
+                                        <input class="form-control input-sm disabled" type="text" id="selectTransmission" name="transmission_id" requerido="no"
                                                value="{{ __($vehicle->transmission->nameTranslate) }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectTransmission" name="transmission_id" requerido="no"
@@ -627,7 +627,7 @@
                                     <div class="form-group @error('doors') is-invalid @enderror">
                                         <label class="required" for="doors">{{ __('catalogue.doorsLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="doors" name="doors" requerido="no"
+                                        <input class="form-control input-sm disabled" type="text" id="doors" name="doors" requerido="no"
                                                value="{{ $vehicle->doors }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="doors" name="doors" requerido="no"
@@ -654,7 +654,7 @@
                                     <div class="form-group @error('seats') is-invalid @enderror">
                                         <label class="required" for="seats">{{ __('catalogue.seatsLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="seats" name="seats" requerido="no"
+                                        <input class="form-control input-sm disabled" type="text" id="seats" name="seats" requerido="no"
                                                value="{{ $vehicle->seats }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="seats" name="seats" requerido="no"
@@ -692,7 +692,7 @@
                                         <div class="form-group @error('upholstery') is-invalid @enderror">
                                             <label class="required" for="selectUpholstery">{{ __('catalogue.upholsteryLabel') }}</label>
                                             @if ($vehicle !== null)
-                                            <input class="form-control disabled" type="text" id="selectUpholstery" name="upholstery" requerido="no"
+                                            <input class="form-control input-sm disabled" type="text" id="selectUpholstery" name="upholstery" requerido="no"
                                                    value="{{ __($vehicle->upholstery->nameTranslate) }}" disabled>
                                             @else
                                             <select class="form-control selectpicker show-tick" id="selectUpholstery" name="upholstery" requerido="no"
@@ -728,7 +728,7 @@
                                         <div class="form-group @error('interior_color_id') is-invalid @enderror">
                                             <label class="required" for="selectInteriorColor">{{ __('catalogue.interiorColorLabel') }}</label>
                                             @if ($vehicle !== null)
-                                            <input class="form-control disabled" type="text" id="selectInteriorColor" name="interior_color_id" requerido="no"
+                                            <input class="form-control input-sm disabled" type="text" id="selectInteriorColor" name="interior_color_id" requerido="no"
                                                    value="{{ __($vehicle->interiorColor->nameTranslate) }}" disabled>
                                             @else
                                             <select class="form-control selectpicker show-tick" id="selectInteriorColor" name="interior_color_id" requerido="no"
@@ -771,7 +771,7 @@
                                     <div class="form-group @error('body_color_id') is-invalid @enderror">
                                         <label class="required" for="selectBodyColor">{{ __('catalogue.bodyColorLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectBodyColor" name="body_color_id" requerido="no"
+                                        <input class="form-control input-sm disabled" type="text" id="selectBodyColor" name="body_color_id" requerido="no"
                                                value="{{ __($vehicle->bodyColor->nameTranslate) }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectBodyColor" name="body_color_id" requerido="no"
@@ -1007,7 +1007,7 @@
                                 <div class="form-group">
                                     <label class="nullable" data-nullable-msg="{{ __('validation.nullable') }}" for="selectPreviousOwners">{{ __('catalogue.previousOwnersLabel') }}</label>
                                     @if ($vehicle !== null)
-                                    <input class="form-control disabled" type="text" id="selectPreviousOwners" name="previousOwners" value="{{ $vehicle->previousOwners }}" disabled>
+                                    <input class="form-control input-sm disabled" type="text" id="selectPreviousOwners" name="previousOwners" value="{{ $vehicle->previousOwners }}" disabled>
                                     @else
                                     <select class="form-control selectpicker show-tick" id="selectPreviousOwners" name="previousOwners"
                                             data-style="btn btn-sm btn-outline-light" data-size="6">
@@ -1047,7 +1047,7 @@
                                     <div class="form-group @error('availability_type_id') is-invalid @enderror">
                                         <label class="required" for="selectAvailabilityType">{{ __('catalogue.availabilityLabel') }}</label>
                                         @if ($vehicle !== null)
-                                        <input class="form-control disabled" type="text" id="selectAvailabilityType" name="availability_type_id" requerido="no"
+                                        <input class="form-control input-sm disabled" type="text" id="selectAvailabilityType" name="availability_type_id" requerido="no"
                                                value="{{ __($vehicle->availability->nameTranslate) }}" disabled>
                                         @else
                                         <select class="form-control selectpicker show-tick" id="selectAvailabilityType" name="availability_type_id" requerido="no"
@@ -1271,37 +1271,10 @@
                         </div>
                         @endif
 
-                        @if ($vehicle !== null)
-                        <!-- IMAGES -->
-                        <div class="row">
-                            <div class="col-12">
-                                <h4 class="text-center">
-                                    <a class="btn btn-block btn-primary disabled" href="#vehicleImages" role="button"
-                                       data-toggle="collapse" aria-expanded="false" aria-controls="vehicleEquipment">
-                                        {{ __('catalogue.sectionImagesLabel') }}
-                                    </a>
-                                </h4>
-                                <hr class="divider divider-col-6 bg-red">
-                                <div class="collapse" id="vehicleImages">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <h4 class="text-center">Sección de subida de imágenes</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-
                         <!-- FORM GROUP BUTTONS -->
-                        <fieldset class="row justify-content-center offset-top-124">
+                        <fieldset class="row justify-content-center offset-top-50">
                             <div class="col-12 col-md-3 col-lg-2 my-2 text-center text-md-right order-md-4">
                                 <button type="submit" class="btn btn-success">{{ __('translate.formBtnSend') }}</button>
-                            </div>
-                            <div class="col-12 col-md-3 col-lg-2 my-2 text-center text-md-right order-md-3">
-                                @if (!$modify)
-                                <button type="reset" class="btn btn-danger">{{ __('translate.formBtnReset') }}</button>
-                                @endif
                             </div>
 
                             <div class="col-12 col-md-3 col-lg-5 text-center order-md-2"></div>
@@ -1311,6 +1284,122 @@
                             </div>
                         </fieldset>
                     </form>
+            </div>
+        </div>
+
+        <div class="row offset-top-66 justify-content-center">
+            <div class="col-12 col-xl-11 col-xxl-10 text-left">
+                <div class="row justify-content-center" id="section_images">
+                    <p class="text-center alert alert-warning">{{ __('catalogue.editImagesNoticeText') }}</p>
+                </div>
+                @if ($vehicle !== null)
+                <!-- IMAGES -->
+                <div class="row">
+                    <div class="col-12">
+                        <h4 class="text-center">
+                            <a class="btn btn-block btn-primary" href="#vehicleImages" role="button"
+                               data-toggle="collapse" aria-expanded="false" aria-controls="vehicleImages">
+                                {{ __('catalogue.sectionImagesLabel') }}
+                            </a>
+                        </h4>
+                        <hr class="divider divider-col-6 bg-red">
+                        <div class="collapse show" id="vehicleImages">
+                            <div class="row">
+                                <div class="col-12">
+                                    @foreach ($vehicle->images as $key => $image)
+                                    <div class="row my-3 justify-content-center align-items-center">
+                                        <div class="col-2 text-center">
+                                            <span class="p-2 rounded border-1 border-orange bg-dark text-orange big">{{ $key + 1 }}</span>
+                                        </div>
+                                        <div class="col-3 border-1 border-orange rounded p-0">
+                                            <a target="_blank" href="{{ $image->url ?? $image->fileName }}">
+                                                <img class="rounded" src="{{ $image->url ?? $image->fileName }}">
+                                            </a>
+                                        </div>
+                                        <div class="col-1 text-center">
+                                            <span class="mdi mdi-48px mdi-greater-than text-orange"></span>
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            <a class="btn btn-outline-light" href="{{ $baseURL }}/delete/image/{{ $image->id }}">
+                                                <span class="mdi mdi-24px mdi-delete-forever text-danger"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="row offset-top-98" id="section_add_image">
+                                <div class="col-12">
+                                    <div class="card" id="addImage">
+                                        <form class="form-group p-5" id="addImageForm" method="post" action="/submit-image" enctype="multipart/form-data">
+                                            <h3 class="mt-0">{{ __('catalogue.addImageSectionLabel') }}</h3>
+
+                                            <div class="accordion" id="addImageAccordion">
+                                                <div class="card m-0">
+                                                    <div class="card-header" id="addImageHeadingUrlSection">
+                                                        <h2 class="m-0">
+                                                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" 
+                                                                    data-target="#addImageCollapseUrlSection" aria-expanded="true" aria-controls="addImageCollapseUrlSection">
+                                                                {{ __('catalogue.addImageUrlSectionLabel') }}
+                                                            </button>
+                                                        </h2>
+                                                    </div>
+
+                                                    <div id="addImageCollapseUrlSection" class="collapse show" aria-labelledby="addImageHeadingUrlSection" data-parent="#addImageAccordion">
+                                                        <div class="card-body">
+                                                            <div class="input-group my-5">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text bg-orange text-darker">{{ __('catalogue.addImageUrlLabel') }}</div>
+                                                                </div>
+                                                                <input class="form-control" id="newImageUrl" type="text" name="imageURL" value="" placeholder="{{ __('catalogue.addImageUrlPlaceholder') }}">
+                                                                <div class="input-group-append">
+                                                                    <div class="input-group-text bg-success text-darker btn btn-success">
+                                                                        <a id="addImageUrlAnchor" onclick="submitAddImageForm(this)"><span class="mdi mdi-24px mdi-image-plus"></span></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card m-0">
+                                                    <div class="card-header" id="addImageHeadingFileSection">
+                                                        <h2 class="m-0">
+                                                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" 
+                                                                    data-target="#addImageCollapseFileSection" aria-expanded="false" aria-controls="addImageCollapseFileSection">
+                                                                {{ __('catalogue.addImageFileSectionLabel') }}
+                                                            </button>
+                                                        </h2>
+                                                    </div>
+                                                    <div id="addImageCollapseFileSection" class="collapse" aria-labelledby="addImageHeadingFileSection" data-parent="#addImageAccordion">
+                                                        <div class="card-body">
+                                                            <div class="input-group my-5">
+                                                                <div class="custom-file">
+                                                                    <input type="file" class="custom-file-input" id="newImageFile" type="file" name="imageFile">
+                                                                    <label class="custom-file-label form-control" for="newImageFile">{{ __('catalogue.addImageFileInputLabel') }}</label>
+                                                                </div>
+                                                                <div class="input-group-append">
+                                                                    <div class="input-group-text bg-success text-darker btn btn-success">
+                                                                        <a id="addImageFileAnchor" onclick="submitAddImageForm(this)"><span class="mdi mdi-24px mdi-image-plus"></span></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @csrf
+                                                <input type="hidden" name="vehicleId" value="{{ $vehicle->id }}">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>
@@ -1373,6 +1462,9 @@
 @endif
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+    });
 
     var modelsList = [];
             @foreach ($vehicleModels as $model)
@@ -1385,4 +1477,5 @@
 
 </script>
 <script src="{{ $jsURL }}/submit-vehicle.js"></script>
+<script src="{{ $jsURL }}/bs-custom-file-input.min.js"></script>
 @endsection

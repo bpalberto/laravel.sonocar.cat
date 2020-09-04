@@ -11,7 +11,7 @@
         <meta http-equiv="Cache-control" content="no-cache">
 
         <link rel="icon" href="{{ $imagesURL }}/favicon.ico" type="image/x-icon">
-
+        
         <link rel="stylesheet" href="{{ $cssURL }}/bootstrap.css">
         <link rel="stylesheet" href="{{ $cssURL }}/bootstrap-select.css">
         <link rel="stylesheet" href="{{ $cssURL }}/materialdesignicons.css">
@@ -50,7 +50,7 @@
         <script src="{{ $jsURL }}/script.js"></script>
         <script type="application/javascript">
             $("#language").change(function () {
-            window.location = './lang/' + $("#language").val();
+            window.location = '/lang/' + $("#language").val();
             });
         </script>
         @show

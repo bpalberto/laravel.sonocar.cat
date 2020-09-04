@@ -170,11 +170,11 @@ deliveryDate.day = "";
 deliveryDate.month = "";
 deliveryDate.year = "";
 
-function fillDeliveryDate(day, month, year){
+function fillDeliveryDate(day, month, year) {
     var result;
     var objective1 = document.getElementById('deliveryDate');
     var objective2 = document.getElementById('deliveryDateDisplay');
-    
+
     if (day !== null) {
         if (day.length < 2) {
             day = "0" + day;
@@ -190,7 +190,7 @@ function fillDeliveryDate(day, month, year){
     if (year !== null) {
         deliveryDate.year = year;
     }
-    
+
     result = deliveryDate.day + "/" + deliveryDate.month + "/" + deliveryDate.year;
     objective2.value = objective1.value = result;
 }
@@ -266,9 +266,9 @@ function showInputConsumptions(fuelSelectedId) {
     }
 }
 
-function showAvailabilityGroup(selected){
-    
-    if (selected === "2"){
+function showAvailabilityGroup(selected) {
+
+    if (selected === "2") {
         $('#deliveryDateGroup').collapse('show');
         $('#deliveryDaysGroup').collapse('hide');
     } else if (selected === "3") {
@@ -280,14 +280,25 @@ function showAvailabilityGroup(selected){
     }
 }
 
-function toggles(sender){
-   
-    if (sender.value !== "1"){
+function toggles(sender) {
+
+    if (sender.value !== "1") {
         sender.value = "1";
         sender.checked = true;
-    }else{
+    } else {
         sender.value = "0";
         sender.checked = true;
+    }
+}
+
+function submitAddImageForm(sender) {
+    if (sender.id === "addImageUrlAnchor") {
+        document.getElementById('newImageFile').value = null;
+        document.getElementById('addImageForm').submit();
+    }
+    if (sender.id === "addImageFileAnchor") {
+        document.getElementById('newImageUrl').value = null;
+        document.getElementById('addImageForm').submit();
     }
 }
 
@@ -345,22 +356,22 @@ $('#selectYearLastCamBeltService').on('changed.bs.select', function (e, clickedI
 
 $('#selectDayDeliveryDate').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
     var daySelected = e.currentTarget.selectedOptions[0].value;
-    fillDeliveryDate( daySelected, null, null);
+    fillDeliveryDate(daySelected, null, null);
 });
 
 $('#selectMonthDeliveryDate').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
     var monthSelected = e.currentTarget.selectedOptions[0].value;
-    fillDeliveryDate( null, monthSelected, null);
+    fillDeliveryDate(null, monthSelected, null);
 });
 
 $('#selectYearDeliveryDate').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
     var yearSelected = e.currentTarget.selectedOptions[0].value;
-    fillDeliveryDate( null, null, yearSelected);
+    fillDeliveryDate(null, null, yearSelected);
 });
 
 $('#selectAvailabilityType').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
     var selected = e.currentTarget.selectedOptions[0].value;
-    showAvailabilityGroup( selected );
+    showAvailabilityGroup(selected);
 });
 
 window.onload = function () {

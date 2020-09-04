@@ -44,11 +44,11 @@
                     @if ( $vehicle->images->isNotEmpty() )
                     <div id="carousel" class="carousel slide bg-dark" data-ride="carousel">
                         <div class="carousel-inner">
-                            @foreach ($vehicle->images as $key => $picture)
+                            @foreach ($vehicle->images as $key => $image)
                             @if ($key == 0)
-                            <div class="carousel-item active" style="background-image: url('{{ $picture->fileName }}');"></div>
+                            <div class="carousel-item active" style="background-image: url('{{ $image->url ?? $image->fileName }}');"></div>
                             @else
-                            <div class="carousel-item" style="background-image: url('{{ $picture->fileName }}');"></div>
+                            <div class="carousel-item" style="background-image: url('{{ $image->url ?? $image->fileName }}');"></div>
                             @endif
                             @endforeach
                         </div>
@@ -61,7 +61,7 @@
                             <span class="sr-only">Next</span>
                         </a>
                         <ol class="carousel-indicators">
-                            @foreach ($vehicle->images as $key => $picture)
+                            @foreach ($vehicle->images as $key => $image)
                             @if ($key == 0)
                             <li data-target="#carousel" data-slide-to="{{ $key }}" class="active"></li>
                             @else
@@ -311,7 +311,7 @@
                             <div class="col-lg-12 offset-top-20">
                                 <div class="form-group">
                                     <label class="form-label-outside" for="contact-us-message">{{ __('translate.formMsgLabel') }}</label>
-                                    <textarea style="height:auto" rows="6" class="form-control" id="contact-us-message" name="message" data-constraints="@Required">{{ __('catalogue.orderMessage', [ "maker" =>$vehicle->maker->name , "model" => $vehicle->model->name , "version" => $vehicle->modelVersion , "color" => __($vehicle->bodyColor->nameTranslate), "ref" => $vehicle->crossReference ]) }}</textarea>
+                                    <textarea style="height:auto" rows="6" class="form-control" id="contact-us-message" name="message" data-constraints="@Required">{{ __('catalogue.orderMessageText', [ "maker" =>$vehicle->maker->name , "model" => $vehicle->model->name , "version" => $vehicle->modelVersion , "color" => __($vehicle->bodyColor->nameTranslate), "ref" => $vehicle->crossReference ]) }}</textarea>
                                 </div>
                             </div>
                         </div>

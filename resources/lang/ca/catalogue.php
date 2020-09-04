@@ -67,9 +67,6 @@ return [
     "cylinderCapacityUnitsLabel"    => "cm3",
     "emptyWeightUnitsLabel"         => "Quilograms",
     "sectionImagesLabel"            => "Imatges del vehicle",
-    "searchMakerPlaceholder"        => "Cercar fabricant",
-    "searchPlaceholder"             => "Cercar...",
-    "modelVersionPlaceholder"       => "Ex.: 'Elegance' pel vehicle Clase E de Mercedes-Benz.",
     "modelVersionLabel"             => "Versió del model",
     "fuelLabel"                     => "Combustible",
     "fuelTypeLabel"                 => "Combustible",
@@ -122,13 +119,24 @@ return [
     "lastTechnicalLabel"            => "Última revisió",
     "lastCamBeltServiceLabel"       => "Últim canvi de corretja de distribució",
     "cabOrRentalLabel"              => "Ha sigut de lloguer o TAXI?",
+    "addImageSectionLabel"          => "Afegeix una foto",
+    "addImageUrlSectionLabel"       => "Mitjançant una URL externa",
+    "addImageUrlLabel"              => "URL",
+    "addImageFileSectionLabel"      => "Pujant un fitxer des del seu pc",
+    "addImageFileLabel"             => "Fitxer",
+    "addImageFileInputLabel"        => "No s'ha seleccionat cap fitxer...",
+ 
+    "searchMakerPlaceholder"        => "Cercar fabricant",
+    "searchPlaceholder"             => "Cercar...",
+    "modelVersionPlaceholder"       => "Ex.: 'Elegance' pel vehicle Clase E de Mercedes-Benz.",
+    "addImageUrlPlaceholder"        => "https://subdomini.exemple.cat/ruta/on/es/troba/la/imatge.png",
 
-
-    "orderMessage"                  => $orderMessage,
+    "orderMessageText"              => $orderMessage,
     "deleteQuestionText"            => "Segur que desitja ESBORRAR el vehicle seleccionat?",
     "notUndoText"                   => "¡¡¡ Aquesta operació no es pot desfer !!!",
     "deletedSuccessText"            => "Esborrat correctament.",
     "savedSuccessText"              => "Enregistrat correctament.",
     "errorText"                     => "Hi ha hagut un error i no s'ha pogut completar la sol·licitud.",
+    "editImagesNoticeText"          => "Abans d'editar les fotos, s'han d'enviar les modificacions fetes en el formulari anterior. En cas contrari, es perdràn els canvis.", 
 
 ];

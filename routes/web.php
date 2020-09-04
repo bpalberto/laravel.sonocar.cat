@@ -62,11 +62,13 @@ Route::get('/catalogue/vehicle/sku/{sku}', 'CatalogueController@vehicleDetailByS
 /* Catalogue Store New Data */
 Route::get('/submit-vehicle', 'CatalogueAuthController@submitVehicleGet')->name('/submit-vehicle.Get');
 Route::post('/submit-vehicle', 'CatalogueAuthController@submitVehiclePost')->name('/submit-vehicle.Post');
+Route::post('/submit-image', 'CatalogueAuthController@submitImagePost')->name('/submit-image.Post');
 
 
 /* Catalogue Delete Data*/
-Route::get('/delete/vehicle/{id}', 'CatalogueAuthController@delete')->name('/delete/vehicle/id');
-Route::get('/delete/vehicle/{id}/yes', 'CatalogueAuthController@delete')->name('/delete/vehicle/id/yes');
+Route::get('/delete/vehicle/{vehicleId}', 'CatalogueAuthController@deleteVehicle')->name('/delete/vehicle/id');
+Route::get('/delete/vehicle/{vehicleId}/yes', 'CatalogueAuthController@deleteVehicle')->name('/delete/vehicle/id/yes');
+Route::get('/delete/image/{imageId}', 'CatalogueAuthController@deleteImage')->name('/delete/image/id');
 
 
 /* Catalogue Modify Data*/

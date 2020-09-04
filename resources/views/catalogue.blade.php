@@ -58,11 +58,11 @@ $valor = "Valor";
                     <div id="carouselVehicle{{ $vehicle->id }}Images" class="carousel slide bg-dark" data-ride="carousel">
                         <div class="carousel-inner">
                             <a href="{{ $vehicleURL }}/sku/{{ $vehicle->crossReference }}">
-                            @foreach ($vehicle->images as $key => $picture)
+                            @foreach ($vehicle->images as $key => $image)
                             @if ($key == 0)
-                            <div class="catalogue carousel-item active" style="background-image: url('{{ $picture->fileName }}');"></div>
+                            <div class="catalogue carousel-item active" style="background-image: url('{{ $image->url ?? $image->fileName }}');"></div>
                             @else
-                            <div class="catalogue carousel-item" style="background-image: url('{{ $picture->fileName }}');"></div>
+                            <div class="catalogue carousel-item" style="background-image: url('{{ $image->url ?? $image->fileName }}');"></div>
                             @endif
                             @endforeach
                             </a>
@@ -76,7 +76,7 @@ $valor = "Valor";
                             <span class="sr-only">Next</span>
                         </a>
                         <ol class="carousel-indicators">
-                            @foreach ($vehicle->images as $key => $picture)
+                            @foreach ($vehicle->images as $key => $image)
                             @if ($key == 0)
                             <li data-target="#carouselVehicle{{ $vehicle->id }}Images" data-slide-to="{{ $key }}" class="active"></li>
                             @else

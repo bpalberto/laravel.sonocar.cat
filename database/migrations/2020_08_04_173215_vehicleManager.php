@@ -103,11 +103,6 @@ class vehicleManager extends Migration
             $table->string('nameTranslate')->nullable();
         });
 
-        Schema::create('images', function (Blueprint $table) {
-            $table->id();
-            $table->string('fileName');
-        });
-
         Schema::create('models', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('make_id');
@@ -177,11 +172,8 @@ class vehicleManager extends Migration
             $table->boolean('visible');
             $table->timestamps();
             $table->softDeletes();
-            
-            
 
             //Foreigns
-            
             $table->foreign('availability_type_id')->references('id')->on('availability_types');
             $table->foreign('drive_type_id')->references('id')->on('drive_types');
             $table->foreign('make_id')->references('id')->on('makes');
@@ -198,18 +190,22 @@ class vehicleManager extends Migration
             $table->foreign('vehicle_body_id')->references('id')->on('vehicle_bodies');
             $table->foreign('vehicle_offer_type_id')->references('id')->on('vehicle_offer_types');
         });
+        
+        Schema::create('images', function (Blueprint $table) {
+            $table->id();
+            $table->string('url')->nullable();
+            $table->string('fileName')->nullable();
+            $table->unsignedBigInteger('vehicle_id');
+            $table->timestamp('created_at')->useCurrent();
+            
+            //Foreigns
+            $table->foreign('vehicle_id')->references('id')->on('vehicles');
+        });
 
         Schema::create('equipment_vehicle', function (Blueprint $table) {
             $table->unsignedBigInteger('equipment_id');    
             $table->unsignedBigInteger('vehicle_id');
             $table->foreign('equipment_id')->references('id')->on('equipment');
-            $table->foreign('vehicle_id')->references('id')->on('vehicles');
-        });
-
-        Schema::create('image_vehicle', function (Blueprint $table) {
-            $table->unsignedBigInteger('image_id');
-            $table->unsignedBigInteger('vehicle_id');
-            $table->foreign('image_id')->references('id')->on('images');
             $table->foreign('vehicle_id')->references('id')->on('vehicles');
         });
         

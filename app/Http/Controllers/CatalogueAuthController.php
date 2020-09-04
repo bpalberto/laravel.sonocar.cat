@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\make;
 use App\vehicle;
-use App\equipment;
+use App\image;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Description of CatalogueController
@@ -13,6 +15,8 @@ use App\equipment;
  * @author alberto
  */
 class CatalogueAuthController extends Controller {
+
+    public const STORAGE_PREFIX = "/storage";
 
     /**
      * Create a new controller instance.
@@ -71,6 +75,17 @@ class CatalogueAuthController extends Controller {
         $cTSP2 = date("y", time()); // Año (2D)
         $cTSP3 = date("zHis", time()); // Día del año (3D) + Hora (2D) + Minutos (2D) + Segundos (2D)
         $cTSP4 = mt_rand(0, 9); // Número aleatorio de 0 a 9
+        $sku = $cTSP1 . $cTSP2 . $cTSP3 . $cTSP4;
+
+        return $sku;
+    }
+
+    protected function getNewImageSKU() {
+        // Creación de la referencia cruzada única según la fecha de creación
+        $cTSP1 = "sncrimg"; // Refiere eliminar las vocales a SONOCAR IMAGE
+        $cTSP2 = date("Y", time()); // Año (4D)
+        $cTSP3 = date("zHis", time()); // Día del año (3D) + Hora (2D) + Minutos (2D) + Segundos (2D)
+        $cTSP4 = mt_rand(0, 999); // Número aleatorio de 0 a 999
         $sku = $cTSP1 . $cTSP2 . $cTSP3 . $cTSP4;
 
         return $sku;
@@ -214,6 +229,67 @@ class CatalogueAuthController extends Controller {
         }
     }
 
+    public function submitImagePost(Request $request) {
+        $referer = $request->headers->get('referer') . "#section_add_image";
+        $vehicleIdGiven = intval($request->get('vehicleId'));
+        $vehicleId = vehicle::query()->find($vehicleIdGiven)->id;
+
+        $imageUrlGiven = $request->get('imageURL');
+        $fileGiven = $request->file('imageFile');
+
+        // Primero, ver si la id de vehículo es válida
+        if ($vehicleId !== null) {
+
+            // Segundo, ver si se ha pasado una url externa
+            if ($imageUrlGiven !== null) {
+                $newImageData = array(
+                    'url' => $imageUrlGiven,
+                    'fileName' => null,
+                    'vehicle_id' => $vehicleId,
+                );
+
+                // Tercero, ver si se ha pasado un fichero para subir 
+            } else if ($fileGiven !== null) {
+
+                $newImageData = array(
+                    'url' => null,
+                    'fileName' => $this->storeImageFile($fileGiven),
+                    'vehicle_id' => $vehicleId,
+                );
+
+                // Por último, si los valores no son los esperados, anulamos la operación.
+            } else {
+                $newImageData = null;
+            }
+
+            if ($newImageData !== null && ( ($newImageData['url'] !== null) || ($newImageData['fileName'] !== null) )) {
+                $newImage = new \App\image($newImageData);
+                $newImage->save();
+            }
+        }
+
+        return redirect($referer);
+    }
+
+    protected function storeImageFile(UploadedFile $fileGiven) {
+        $destFileName = $this->getNewImageSKU();
+        $destFilePath = "/images/vehicles/";
+
+        switch ($fileGiven->getMimeType()) {
+            case "image/jpeg";
+                $destFileName = $destFileName . ".jpeg";
+                break;
+            case "image/png":
+                $destFileName = $destFileName . ".png";
+                break;
+            default :
+                return null;
+        }
+
+        $fileGiven->storePubliclyAs($destFilePath, $destFileName, 'public');
+        return ( self::STORAGE_PREFIX . $destFilePath . $destFileName );
+    }
+
     /**
      * Get vehicle data to modify and show form with modify flag. 
      * 
@@ -297,7 +373,7 @@ class CatalogueAuthController extends Controller {
         return view('catalogue', ['vehicles' => $vehicles, 'makers' => $allMakers]);
     }
 
-    public function delete(Request $request, $id) {
+    public function deleteVehicle(Request $request, $vehicleId) {
 
         if ($request->is('*/yes')) {
             // Delete confirmated
@@ -313,6 +389,33 @@ class CatalogueAuthController extends Controller {
             return view('confirm-delete', ['vehicle' => $vehicle[0], 'confirm' => false]);
         }
         return view('confirm-delete', ['vehicle' => null, 'confirm' => false]);
+    }
+
+    public function deleteImage(Request $request, $imageId) {
+        $referer = $request->headers->get('referer') . "#section_images";
+        $image = image::query()->find($imageId);
+
+        // Primero, ver si es externa (Si -> elimina de la BD // No -> ver si es local)
+        if ($image->url !== null) {
+            $image->delete();
+        } else if ($image->fileName !== null) {
+            // Si la imagen es local, se borra del servidor y de la BD, si hay algún problema, no se hace nada.
+            if ($this->deleteImageFromDisk($image->fileName)) {
+                $image->delete();
+            }
+        }
+
+        return redirect($referer);
+    }
+
+    protected function deleteImageFromDisk($fullPath) {
+        $path = substr($fullPath, (strlen(self::STORAGE_PREFIX)));
+
+        if (Storage::disk('public')->exists($path)) {
+            return Storage::disk('public')->delete($path);
+        } 
+        
+        return false;
     }
 
 }

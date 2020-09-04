@@ -131,7 +131,7 @@ class vehicle extends Model {
     }
 
     public function images() {
-        return $this->belongsToMany('App\image');
+        return $this->hasMany('App\image');
     }
 
 }

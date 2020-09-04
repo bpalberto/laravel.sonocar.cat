@@ -434,11 +434,11 @@ h4, .h4 {
 }
 
 h5, .h5 {
-    font-size: 17px;
+    font-size: 1rem;
 }
 
 h6, .h6 {
-    font-size: 17px;
+    font-size: 1rem;
 }
 
 .lead {
@@ -1857,7 +1857,7 @@ pre code {
     display: block;
     width: 100%;
     padding: 0.375rem 0.75rem;
-    font-size: 17px;
+    font-size: 1rem;
     line-height: 1.5;
     color: #252525;
     background-color: transparent;
@@ -1932,7 +1932,7 @@ select.form-control:focus::-ms-value {
 .col-form-label-sm {
     padding-top: calc(0.25rem + 1px);
     padding-bottom: calc(0.25rem + 1px);
-    font-size: 17px;
+    font-size: 1rem;
     line-height: 1.5;
 }
 
@@ -3065,7 +3065,7 @@ input[type="button"].btn-block {
     min-width: 10rem;
     padding: 0.5rem 0;
     margin: 0.125rem 0 0;
-    font-size: 17px;
+    font-size: 1rem;
     color: #252525;
     text-align: left;
     list-style: none;
@@ -3235,7 +3235,7 @@ input[type="button"].btn-block {
     display: block;
     padding: 0.5rem 1.5rem;
     margin-bottom: 0;
-    font-size: 17px;
+    font-size: 1rem;
     color: #939393;
     white-space: nowrap;
 }
@@ -3344,7 +3344,7 @@ input[type="button"].btn-block {
     align-items: center;
     padding: 0.375rem 0.75rem;
     margin-bottom: 0;
-    font-size: 17px;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
     color: #fff;
@@ -3554,62 +3554,86 @@ input[type="button"].btn-block {
     position: relative;
     display: inline-block;
     width: 100%;
-    height: calc(2.25rem + 2px);
+    /*height: calc(2.25rem + 2px);*/
     margin-bottom: 0;
 }
 
 .custom-file-input {
     position: relative;
-    z-index: 2;
+    z-index: 1;
     width: 100%;
-    height: calc(2.25rem + 2px);
+    /*height: calc(2.25rem + 2px);*/
     margin: 0;
     opacity: 0;
 }
 
 .custom-file-input:focus ~ .custom-file-label {
-    border-color: #80bdff;
+    border-color: #F7930E;
     box-shadow: 0 0 0 0.2rem rgba(247, 147, 14, 0.25);
 }
 
-.custom-file-input:focus ~ .custom-file-label::after {
-    border-color: #80bdff;
+.custom-file-input:focus ~ .custom-file-label::before {
+    border-color: #303030;
 }
 
-.custom-file-input:lang(en) ~ .custom-file-label::after {
-    content: "Browse";
+.custom-file-input:lang(en) ~ .custom-file-label::before {
+    content: "Browse...";
 }
+.custom-file-input:lang(ca) ~ .custom-file-label::before {
+    content: "Cerca...";
+}
+.custom-file-input:lang(es) ~ .custom-file-label::before {
+    content: "Buscar...";
+}
+
 
 .custom-file-label {
     position: absolute;
     top: 0;
     right: 0;
-    left: 0;
-    z-index: 1;
-    height: calc(2.25rem + 2px);
-    padding: 0.375rem 0.75rem;
+    left: auto;
+    margin-left: auto;
+    z-index: 2;
+    height: 100%;
+    padding: 0.65rem !important;
     line-height: 1.5;
-    color: #495057;
+    color: #303030;
     background-color: #fff;
-    border: 1px solid #ced4da;
+    border-top: 1px solid #303030;
+    border-bottom: 1px solid #303030;
     border-radius: 0.25rem;
+    font-weight: 400 !important;
+    font-size: 1rem !important;
+    text-align: right;
 }
 
 .custom-file-label::after {
+    display: none;
+}
+
+.custom-file-label::before {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     bottom: 0;
-    z-index: 3;
+    z-index: 2;
     display: block;
-    height: 2.25rem;
-    padding: 0.375rem 0.75rem;
+    height: 100%;
+    padding: 0.65rem;
     line-height: 1.5;
-    color: #495057;
-    content: "Browse";
-    background-color: #e9ecef;
-    border-left: 1px solid #ced4da;
-    border-radius: 0 0.25rem 0.25rem 0;
+    color: #303030;
+    content: "Buscar...";
+    font-weight: 400;
+    font-size: 1rem;
+    background-color: #F7930E;
+    border-radius: 0.25rem 0 0 0.25rem;
+    border-right: 1px solid #303030;
+    cursor: pointer;
+}
+
+.custom-file-label::before:hover {
+    color: #F7930E;
+    background-color: #303030;
 }
 
 .custom-range {
@@ -4609,7 +4633,7 @@ input[type="button"].btn-block {
 
 .pagination-sm .page-link {
     padding: 0.25rem 0.5rem;
-    font-size: 17px;
+    font-size: 1rem;
     line-height: 1.5;
 }
 
@@ -5568,7 +5592,7 @@ button.close {
 .popover-header {
     padding: 0.5rem 0.75rem;
     margin-bottom: 0;
-    font-size: 17px;
+    font-size: 1rem;
     color: inherit;
     background-color: #f7f7f7;
     border-bottom: 1px solid #ebebeb;
@@ -9296,21 +9320,21 @@ h4 .icon + *,
 h5, .h5 {
     margin-top: 4rem;
     margin-bottom: 2rem;
-    font-size: 17px;
+    font-size: 1rem;
     line-height: 1.5;
 }
 
 @media (min-width: 768px) {
     h5, .h5 {
         line-height: 1.22727;
-        font-size: 17px;
+        font-size: 1rem;
     }
 }
 
 h6, .h6 {
     margin-top: 4rem;
     margin-bottom: 2rem;
-    font-size: 17px;
+    font-size: 1rem;
     font-weight: 700;
     line-height: 1.5;
 }
@@ -9325,7 +9349,7 @@ h6 .icon + *,
 @media (min-width: 768px) {
     h6, .h6 {
         line-height: 1.47059;
-        font-size: 17px;
+        font-size: 1rem;
     }
 }
 
@@ -9371,7 +9395,7 @@ p a:hover,
 
 @media (min-width: 480px) {
     .big {
-        font-size: 106.25%;
+        font-size: 150%;
         line-height: 1.470588235294118;
     }
     h1 .big,
@@ -10175,7 +10199,7 @@ mark,
 }
 
 .contact-info p {
-    font-size: 17px;
+    font-size: 1rem;
     margin-bottom: 0;
 }
 
@@ -10186,7 +10210,7 @@ mark,
 .contact-info dl dt, .contact-info dl dd {
     display: inline-block;
     font-weight: 400;
-    font-size: 17px;
+    font-size: 1rem;
 }
 
 .contact-info dl dt, .contact-info dl dd a {
@@ -11828,7 +11852,7 @@ a.thumbnail:hover {
 .navbar-nav > li > a {
     transition: .3s;
     /*font-weight: 400;
-    font-size: 14px;*/
+    font-size: 1rem;*/
 }
 
 .navbar-nav > li > a .badge {
@@ -12259,7 +12283,7 @@ a.icon {
 }
 
 .input-group.input-group-sm > .input-group-addon > .input-group-icon {
-    font-size: 17px;
+    font-size: 1rem;
     line-height: 1;
 }
 
@@ -12328,7 +12352,7 @@ a.icon {
 }
 
 .snackbars .icon-xxs {
-    font-size: 17px;
+    font-size: 1rem;
 }
 
 .snackbars p span:last-child {
@@ -12740,7 +12764,7 @@ label {
 .input-sm,
 .input-lg,
 .form-control {
-    font-size: 14px;
+    font-size: 1rem;
 }
 
 .input-sm, .input-sm:focus,
@@ -12871,7 +12895,7 @@ textarea.form-control {
     position: absolute;
     top: 25px;
     left: 26px;
-    font-size: 14px;
+    font-size: 1rem;
     color: #252525;
     pointer-events: none;
     z-index: 9;
@@ -12915,7 +12939,7 @@ textarea.form-control {
     .form-label-outside, .form-label-outside.focus, .form-label-outside.auto-fill {
         transform: none;
         color: #252525;
-        font-size: 14px;
+        font-size: 1rem;
     }
 }
 
@@ -12946,7 +12970,7 @@ textarea.form-control {
 }
 
 .form-control-feedback {
-    font-size: 17px;
+    font-size: 1rem;
 }
 
 .form-in-process {
@@ -13267,7 +13291,7 @@ textarea.form-control {
 .checkbox-inline .checkbox-custom-dummy:after {
     content: "";
     font-family: "Material Design Icons";
-    font-size: 17px;
+    font-size: 1rem;
     line-height: 10px;
     position: absolute;
     top: 0;
@@ -14473,7 +14497,7 @@ fieldset[disabled] .swiper-slide-caption .btn-default {
     transform: translateY(-50%);
     z-index: 1;
     height: 34px;
-    font-size: 17px;
+    font-size: 1rem;
     line-height: 34px;
     transition: .3s all ease;
     color: inherit;
@@ -14774,7 +14798,7 @@ fieldset[disabled] .swiper-slide-caption .btn-default {
 .rd-navbar-floated.rd-navbar-fixed .rd-navbar-nav li .rd-navbar-icon, .rd-navbar-top-panel.rd-navbar-fixed .rd-navbar-nav li .rd-navbar-icon {
     margin-right: 5px;
     vertical-align: middle;
-    font-size: 17px;
+    font-size: 1rem;
 }
 
 .rd-navbar-floated.rd-navbar-fixed .rd-navbar-nav li.opened > .rd-navbar-submenu-toggle:before, .rd-navbar-top-panel.rd-navbar-fixed .rd-navbar-nav li.opened > .rd-navbar-submenu-toggle:before {
@@ -14861,7 +14885,7 @@ fieldset[disabled] .swiper-slide-caption .btn-default {
 .rd-navbar-floated.rd-navbar-fixed .responsive-tabs .resp-accordion span, .rd-navbar-top-panel.rd-navbar-fixed .responsive-tabs .resp-accordion span {
     margin-right: 5px;
     vertical-align: middle;
-    font-size: 17px;
+    font-size: 1rem;
 }
 
 .rd-navbar-floated.rd-navbar-dark.rd-navbar-fixed .rd-navbar-nav li a, .rd-navbar-top-panel.rd-navbar-dark.rd-navbar-fixed .rd-navbar-nav li a, .rd-navbar-floated.rd-navbar-dark.rd-navbar-fixed .rd-navbar-nav li .responsive-tabs .resp-accordion, .rd-navbar-top-panel.rd-navbar-dark.rd-navbar-fixed .rd-navbar-nav li .responsive-tabs .resp-accordion {
@@ -15054,7 +15078,7 @@ fieldset[disabled] .swiper-slide-caption .btn-default {
 }
 
 .rd-navbar-default.rd-navbar-static .rd-navbar-dropdown li > a {
-    font-size: 14px;
+    font-size: 1rem;
 }
 
 .rd-navbar-default.rd-navbar-transparent.rd-navbar-static .rd-navbar-nav li.active > a, .rd-navbar-default.rd-navbar-transparent.rd-navbar-static .rd-navbar-nav li.focus > a, .rd-navbar-default.rd-navbar-transparent.rd-navbar-static .rd-navbar-nav li > a:hover {
@@ -15148,7 +15172,7 @@ fieldset[disabled] .swiper-slide-caption .btn-default {
     position: absolute;
     top: 50%;
     right: 13px;
-    font-size: 17px;
+    font-size: 1rem;
     font-family: "Material Design Icons";
     line-height: 34px;
     content: "";
@@ -15279,7 +15303,7 @@ fieldset[disabled] .swiper-slide-caption .btn-default {
     position: relative;
     width: 24px;
     height: 24px;
-    font-size: 17px;
+    font-size: 1rem;
     line-height: 24px;
     text-align: center;
     cursor: pointer;
@@ -15510,7 +15534,7 @@ fieldset[disabled] .swiper-slide-caption .btn-default {
 }
 
 .rd-navbar-top-panel .contact-info .icon {
-    font-size: 17px;
+    font-size: 1rem;
     margin-right: 11px;
     line-height: 1;
     vertical-align: middle;
@@ -16500,13 +16524,13 @@ fieldset[disabled] .swiper-slide-caption .btn-default {
         font-size: 24px;
     }
     .swiper-slide h4 {
-        font-size: 17px;
+        font-size: 1rem;
     }
     .swiper-slide h5 {
         font-size: 18px;
     }
     .swiper-slide .btn {
-        font-size: 17px;
+        font-size: 1rem;
     }
     .swiper-slide .btn.btn-lg {
         padding: 10px 20px;
