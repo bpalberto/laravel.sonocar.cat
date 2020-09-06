@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\make;
 use App\vehicle;
 use App\image;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,8 +16,6 @@ use Illuminate\Support\Facades\Storage;
  * @author alberto
  */
 class CatalogueAuthController extends Controller {
-
-    public const STORAGE_PREFIX = "/storage";
 
     /**
      * Create a new controller instance.
@@ -287,7 +286,7 @@ class CatalogueAuthController extends Controller {
         }
 
         $fileGiven->storePubliclyAs($destFilePath, $destFileName, 'public');
-        return ( self::STORAGE_PREFIX . $destFilePath . $destFileName );
+        return ( Controller::PUBLIC_STORAGE_PREFIX_URL . $destFilePath . $destFileName );
     }
 
     /**
@@ -409,7 +408,7 @@ class CatalogueAuthController extends Controller {
     }
 
     protected function deleteImageFromDisk($fullPath) {
-        $path = substr($fullPath, (strlen(self::STORAGE_PREFIX)));
+        $path = substr($fullPath, (strlen(Controller::PUBLIC_STORAGE_PREFIX_URL)));
 
         if (Storage::disk('public')->exists($path)) {
             return Storage::disk('public')->delete($path);

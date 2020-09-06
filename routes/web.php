@@ -77,10 +77,11 @@ Route::post('/submit-vehicle/{id}', 'CatalogueAuthController@modifyVehicleIDPost
 
 
 /* Auth */
-Auth::routes();
+Auth::routes(['verify' => true, 'register' => false]);
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 Route::get('/home', 'HomeController@index')->name('/home');
 
-
+// In the /routes/secret.php are defined secret routes in this case for register a new user.
+include 'secret.php';

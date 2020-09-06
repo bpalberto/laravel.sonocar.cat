@@ -89,3 +89,4 @@ public/.htaccess
 /storage
 storage/*.key
 /nbproject/
+/routes/secret.php

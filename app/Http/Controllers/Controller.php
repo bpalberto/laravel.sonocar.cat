@@ -15,6 +15,8 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     
+    public const PUBLIC_STORAGE_PREFIX_URL = "/storage";
+    
     /**
      * Create a new controller instance.
      *
