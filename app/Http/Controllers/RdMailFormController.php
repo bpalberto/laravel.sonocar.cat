@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Sonocar\Utils\PHPMailer\PHPMailer;
-use Sonocar\Utils\PHPMailer\SMTP;
+use App\Utils\PHPMailer\PHPMailer;
+use App\Utils\PHPMailer\SMTP;
 
 class RdMailFormController extends Controller {
 
